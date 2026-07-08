@@ -4,8 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { Logger } from 'nestjs-pino';
 import helmet from 'helmet';
-import * as compression from 'compression';
-// Workaround for compression default export
+import compression from 'compression';
 
 import { AppModule } from './app.module';
 import { GlobalExceptionFilter } from './common/filters/global-exception.filter';
@@ -31,7 +30,7 @@ async function bootstrap() {
   });
 
   // Optimization
-  app.use((compression as any)());
+  app.use(compression());
 
   // API Versioning and Prefixing
   app.setGlobalPrefix('api');
