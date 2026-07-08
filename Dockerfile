@@ -1,13 +1,12 @@
 # Base stage
 FROM node:20-alpine AS base
 WORKDIR /usr/src/app
-RUN npm install -g pnpm@9
 
 # Dependencies stage
 FROM base AS deps
-COPY package.json pnpm-lock.yaml ./
+COPY package.json package-lock.json ./
 COPY prisma ./prisma/
-RUN pnpm install --frozen-lockfile
+RUN npm ci
 
 # Builder stage
 FROM base AS builder
