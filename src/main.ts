@@ -54,22 +54,18 @@ async function bootstrap() {
   app.useGlobalInterceptors(new TransformInterceptor());
 
   // Swagger Documentation Setup
-  if (env !== 'production') {
-    const config = new DocumentBuilder()
-      .setTitle('Divado API')
-      .setDescription('The complete REST API for Divado Restaurant')
-      .setVersion('1.0')
-      .addBearerAuth()
-      .build();
+  const config = new DocumentBuilder()
+    .setTitle('Divado API')
+    .setDescription('The complete REST API for Divado Restaurant')
+    .setVersion('1.0')
+    .addBearerAuth()
+    .build();
 
-    const document = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('api/docs', app, document);
-  }
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api/docs', app, document);
 
   await app.listen(port);
   logger.log(`Application is running on: http://localhost:${port}/api/v1`);
-  if (env !== 'production') {
-    logger.log(`Swagger docs available at: http://localhost:${port}/api/docs`);
-  }
+  logger.log(`Swagger docs available at: http://localhost:${port}/api/docs`);
 }
 bootstrap();
