@@ -1,0 +1,753 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ==========================================
+// ADMIN & SETTINGS (Base Foundation)
+// ==========================================
+
+model Admin {
+  id        Int      @id @default(autoincrement())
+  guid      String   @unique @default(uuid()) @db.Uuid
+  email     String   @unique
+  name      String
+  password  String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isDeleted Boolean  @default(false)
+}
+
+model FeatureFlag {
+  id          Int      @id @default(autoincrement())
+  guid        String   @unique @default(uuid()) @db.Uuid
+  key         String   @unique
+  value       Boolean  @default(false)
+  description String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdBy   String?  @db.Uuid
+  updatedBy   String?  @db.Uuid
+  isDeleted   Boolean  @default(false)
+}
+
+model Setting {
+  id          Int      @id @default(autoincrement())
+  guid        String   @unique @default(uuid()) @db.Uuid
+  key         String   @unique
+  value       Json
+  description String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdBy   String?  @db.Uuid
+  updatedBy   String?  @db.Uuid
+  isDeleted   Boolean  @default(false)
+}
+
+// ==========================================
+// CUSTOMER DOMAIN
+// ==========================================
+
+enum CustomerStatus {
+  GUEST
+  UNVERIFIED
+  VERIFIED
+  VIP
+  BLOCKED
+}
+
+model Customer {
+  id                 Int            @id @default(autoincrement())
+  guid               String         @unique @default(uuid()) @db.Uuid
+  phone              String         @unique
+  passwordHash       String
+  name               String
+  email              String?
+  status             CustomerStatus @default(UNVERIFIED)
+  loyaltyPoints      Int            @default(0)
+  hashedRefreshToken String?
+  profileImageUrl    String?
+
+  // Statistics
+  totalOrders        Int            @default(0)
+  completedOrders    Int            @default(0)
+  cancelledOrders    Int            @default(0)
+  totalSpent         Decimal        @default(0.0) @db.Decimal(10, 2)
+  lastOrderDate      DateTime?
+
+  // Relations
+  addresses          Address[]
+  notes              CustomerNote[]
+  tags               CustomerTagMapping[]
+  favorites          FavoriteProduct[]
+  cart               Cart?
+  orders             Order[]
+  loyaltyHistory     LoyaltyTransaction[]
+  notifications      Notification[]
+  targetedCoupons    CouponCustomer[]
+  couponUsages       CouponUsageHistory[]
+
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
+  createdBy          String?        @db.Uuid
+  updatedBy          String?        @db.Uuid
+  isDeleted          Boolean        @default(false)
+}
+
+model Address {
+  id         Int      @id @default(autoincrement())
+  guid       String   @unique @default(uuid()) @db.Uuid
+  customerId Int
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  
+  title      String   // e.g., Home, Work
+  street     String
+  building   String?
+  floor      String?
+  apartment  String?
+  landmark   String?
+  latitude   Float?
+  longitude  Float?
+  isDefault  Boolean  @default(false)
+  orders     Order[]
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  isDeleted  Boolean  @default(false)
+}
+
+model CustomerNote {
+  id         Int      @id @default(autoincrement())
+  guid       String   @unique @default(uuid()) @db.Uuid
+  customerId Int
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  note       String   @db.Text
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  createdBy  String?  @db.Uuid // Admin UUID
+  isDeleted  Boolean  @default(false)
+}
+
+model CustomerTag {
+  id         Int      @id @default(autoincrement())
+  guid       String   @unique @default(uuid()) @db.Uuid
+  name       String   @unique
+  colorHex   String?
+
+  customers  CustomerTagMapping[]
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  createdBy  String?  @db.Uuid
+  isDeleted  Boolean  @default(false)
+}
+
+model CustomerTagMapping {
+  customerId Int
+  tagId      Int
+  customer   Customer    @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  tag        CustomerTag @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([customerId, tagId])
+}
+
+// ==========================================
+// CATALOG DOMAIN
+// ==========================================
+
+model Category {
+  id             Int       @id @default(autoincrement())
+  guid           String    @unique @default(uuid()) @db.Uuid
+  categoryCode   String    @unique
+  nameAr         String    @unique
+  nameEn         String    @unique
+  descriptionAr  String?
+  descriptionEn  String?
+  image          String?
+  displayOrder   Int       @unique
+  isActive       Boolean   @default(true)
+  isFeatured     Boolean   @default(false)
+
+  products         Product[]
+  targetedCoupons  CouponCategory[]
+
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  createdBy      String?   @db.Uuid
+  updatedBy      String?   @db.Uuid
+  isDeleted      Boolean   @default(false)
+}
+
+enum ActivityAction {
+  CREATE
+  UPDATE
+  DELETE
+  RESTORE
+  PRICE_CHANGE
+  IMAGE_CHANGE
+  STATUS_CHANGE
+}
+
+model Product {
+  id                 Int       @id @default(autoincrement())
+  guid               String    @unique @default(uuid()) @db.Uuid
+  productCode        String    @unique
+  nameAr             String
+  nameEn             String
+  descriptionAr      String?   @db.Text
+  descriptionEn      String?   @db.Text
+  categoryId         Int
+  category           Category  @relation(fields: [categoryId], references: [id])
+  mainImage          String?
+  
+  // Pricing
+  basePrice          Decimal   @db.Decimal(10, 2)
+  discountPrice      Decimal?  @db.Decimal(10, 2)
+  
+  // Metadata
+  preparationTime    Int       @default(0) // Minutes
+  calories           Int?
+  
+  // Status & Toggles
+  sortOrder          Int       @default(0)
+  isAvailable        Boolean   @default(true)
+  isFeatured         Boolean   @default(false)
+  isBestSeller       Boolean   @default(false)
+  isNew              Boolean   @default(false)
+  isOffer            Boolean   @default(false)
+
+  // Relations
+  images             ProductImage[]
+  priceHistory       ProductPriceHistory[]
+  activityLogs       ProductActivityLog[]
+  insight            ProductInsight?
+  favoritedBy        FavoriteProduct[]
+  extraGroups        ProductExtraGroup[]
+  cartItems          CartItem[]
+  orderItems         OrderItem[]
+  targetedCoupons    CouponProduct[]
+  homeSections       HomeSectionProduct[]
+
+  // Audit
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  createdBy          String?   @db.Uuid // Admin UUID
+  updatedBy          String?   @db.Uuid // Admin UUID
+  isDeleted          Boolean   @default(false)
+}
+
+model ProductImage {
+  id         Int      @id @default(autoincrement())
+  productId  Int
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  imageUrl   String
+  sortOrder  Int      @default(0)
+  createdAt  DateTime @default(now())
+}
+
+model ProductPriceHistory {
+  id         Int      @id @default(autoincrement())
+  productId  Int
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  oldPrice   Decimal  @db.Decimal(10, 2)
+  newPrice   Decimal  @db.Decimal(10, 2)
+  changedBy  String   @db.Uuid // Admin UUID
+  reason     String?
+  createdAt  DateTime @default(now())
+}
+
+model ProductActivityLog {
+  id         Int            @id @default(autoincrement())
+  productId  Int
+  product    Product        @relation(fields: [productId], references: [id], onDelete: Cascade)
+  action     ActivityAction
+  adminId    String         @db.Uuid
+  details    Json?          // Optional old/new values
+  createdAt  DateTime       @default(now())
+}
+
+model ProductInsight {
+  id             Int      @id @default(autoincrement())
+  productId      Int      @unique
+  product        Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  views          Int      @default(0)
+  addedToCart    Int      @default(0)
+  purchased      Int      @default(0)
+  revenue        Decimal  @default(0.0) @db.Decimal(10, 2)
+  conversionRate Float    @default(0.0) // (purchased / views) * 100
+  updatedAt      DateTime @updatedAt
+}
+
+model FavoriteProduct {
+  customerId Int
+  productId  Int
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+
+  @@id([customerId, productId])
+}
+
+// ==========================================
+// CUSTOMIZATION (EXTRAS)
+// ==========================================
+
+enum SelectionType {
+  SINGLE
+  MULTIPLE
+}
+
+model ExtraGroup {
+  id             Int       @id @default(autoincrement())
+  guid           String    @unique @default(uuid()) @db.Uuid
+  nameAr         String
+  nameEn         String
+  selectionType  SelectionType @default(SINGLE)
+  isRequired     Boolean   @default(false)
+  minSelection   Int       @default(0)
+  maxSelection   Int       @default(1)
+  sortOrder      Int       @default(0)
+  isAvailable    Boolean   @default(true)
+  
+  extras         Extra[]
+  products       ProductExtraGroup[]
+
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  createdBy      String?   @db.Uuid
+  isDeleted      Boolean   @default(false)
+}
+
+model Extra {
+  id             Int       @id @default(autoincrement())
+  guid           String    @unique @default(uuid()) @db.Uuid
+  extraGroupId   Int
+  extraGroup     ExtraGroup @relation(fields: [extraGroupId], references: [id], onDelete: Cascade)
+  
+  nameAr         String
+  nameEn         String
+  price          Decimal   @default(0.0) @db.Decimal(10, 2)
+  imageUrl       String?
+  isAvailable    Boolean   @default(true)
+  sortOrder      Int       @default(0)
+  
+  cartItems      CartItemExtra[]
+  orderItems     OrderItemExtra[]
+
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  createdBy      String?   @db.Uuid
+  isDeleted      Boolean   @default(false)
+}
+
+model ProductExtraGroup {
+  productId      Int
+  extraGroupId   Int
+  product        Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
+  extraGroup     ExtraGroup @relation(fields: [extraGroupId], references: [id], onDelete: Cascade)
+  
+  createdAt      DateTime   @default(now())
+
+  @@id([productId, extraGroupId])
+}
+
+// ==========================================
+// SALES & ORDER DOMAIN
+// ==========================================
+
+// ==========================================
+// MARKETING & ENGAGEMENT DOMAIN
+// ==========================================
+
+// ------------------------------------------
+// COUPONS
+// ------------------------------------------
+
+enum CouponType {
+  PERCENTAGE
+  FIXED_AMOUNT
+}
+
+enum CouponTargetType {
+  EVERYONE
+  SPECIFIC_PRODUCTS
+  SPECIFIC_CATEGORIES
+  SPECIFIC_CUSTOMERS
+}
+
+model Coupon {
+  id                Int              @id @default(autoincrement())
+  guid              String           @unique @default(uuid()) @db.Uuid
+  code              String           @unique
+  couponType        CouponType       @default(PERCENTAGE)
+  
+  // Values
+  discountPercent   Decimal?         @db.Decimal(5, 2)
+  fixedDiscount     Decimal?         @db.Decimal(10, 2)
+  maxDiscountAmount Decimal?         @db.Decimal(10, 2)
+  minOrderAmount    Decimal?         @db.Decimal(10, 2)
+  
+  // Rules
+  validFrom         DateTime?
+  validTo           DateTime?
+  usageLimit        Int?             // Global usage limit
+  usageCount        Int              @default(0)
+  usagePerCustomer  Int?             // Limit per customer
+  isActive          Boolean          @default(true)
+  
+  // Targeting
+  targetType        CouponTargetType @default(EVERYONE)
+  targetProducts    CouponProduct[]
+  targetCategories  CouponCategory[]
+  targetCustomers   CouponCustomer[]
+  
+  // History
+  carts             Cart[]
+  orders            Order[]
+  usageHistory      CouponUsageHistory[]
+
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+}
+
+model CouponProduct {
+  couponId  Int
+  productId Int
+  coupon    Coupon  @relation(fields: [couponId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  @@id([couponId, productId])
+}
+
+model CouponCategory {
+  couponId   Int
+  categoryId Int
+  coupon     Coupon   @relation(fields: [couponId], references: [id], onDelete: Cascade)
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  @@id([couponId, categoryId])
+}
+
+model CouponCustomer {
+  couponId   Int
+  customerId Int
+  coupon     Coupon   @relation(fields: [couponId], references: [id], onDelete: Cascade)
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  @@id([couponId, customerId])
+}
+
+model CouponUsageHistory {
+  id         Int      @id @default(autoincrement())
+  couponId   Int
+  customerId Int
+  orderId    Int?
+  
+  coupon     Coupon   @relation(fields: [couponId], references: [id], onDelete: Cascade)
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  
+  usedAt     DateTime @default(now())
+}
+
+// ------------------------------------------
+// LOYALTY SYSTEM
+// ------------------------------------------
+
+enum LoyaltyTransactionType {
+  EARN
+  REDEEM
+  ADJUSTMENT
+  EXPIRE
+}
+
+model LoyaltyTransaction {
+  id         Int                    @id @default(autoincrement())
+  guid       String                 @unique @default(uuid()) @db.Uuid
+  customerId Int
+  customer   Customer               @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  
+  points     Int
+  type       LoyaltyTransactionType
+  orderId    Int?                   // Reference to Order if applicable
+  
+  reason     String?
+  adminId    String?                @db.Uuid // Admin UUID if manual adjustment
+  
+  createdAt  DateTime               @default(now())
+}
+
+// ------------------------------------------
+// IN-APP NOTIFICATIONS
+// ------------------------------------------
+
+enum NotificationType {
+  GENERAL
+  OFFER
+  ORDER_UPDATE
+  LOYALTY
+  COUPON
+}
+
+model Notification {
+  id         Int              @id @default(autoincrement())
+  guid       String           @unique @default(uuid()) @db.Uuid
+  customerId Int
+  customer   Customer         @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  
+  type       NotificationType @default(GENERAL)
+  titleAr    String
+  titleEn    String
+  messageAr  String           @db.Text
+  messageEn  String           @db.Text
+  
+  isRead     Boolean          @default(false)
+  readAt     DateTime?
+  
+  createdAt  DateTime         @default(now())
+}
+
+// ------------------------------------------
+// BANNERS
+// ------------------------------------------
+
+enum BannerTargetType {
+  LINK
+  PRODUCT
+  CATEGORY
+}
+
+model Banner {
+  id          Int              @id @default(autoincrement())
+  guid        String           @unique @default(uuid()) @db.Uuid
+  titleAr     String?
+  titleEn     String?
+  subtitleAr  String?
+  subtitleEn  String?
+  imageUrl    String
+  buttonText  String?
+  
+  targetType  BannerTargetType @default(LINK)
+  targetId    String?          // URL, ProductId, or CategoryId
+  
+  sortOrder   Int              @default(0)
+  startDate   DateTime?
+  endDate     DateTime?
+  isActive    Boolean          @default(true)
+  
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+}
+
+// ------------------------------------------
+// DYNAMIC HOME BUILDER
+// ------------------------------------------
+
+enum HomeSectionType {
+  BANNER_SLIDER
+  CATEGORIES
+  OFFERS
+  BEST_SELLERS
+  FEATURED_PRODUCTS
+  NEW_PRODUCTS
+  RECOMMENDED
+  COUPONS
+  CUSTOM_PRODUCTS
+}
+
+model HomeSection {
+  id             Int                  @id @default(autoincrement())
+  guid           String               @unique @default(uuid()) @db.Uuid
+  type           HomeSectionType
+  titleAr        String?
+  titleEn        String?
+  
+  sortOrder      Int                  @default(0)
+  maxItems       Int                  @default(10)
+  isActive       Boolean              @default(true)
+  
+  customProducts HomeSectionProduct[]
+  
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
+}
+
+model HomeSectionProduct {
+  homeSectionId Int
+  productId     Int
+  homeSection   HomeSection @relation(fields: [homeSectionId], references: [id], onDelete: Cascade)
+  product       Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  
+  sortOrder     Int         @default(0)
+  @@id([homeSectionId, productId])
+}
+
+// ------------------------------------------
+// CART
+// ------------------------------------------
+
+model Cart {
+  id                   Int       @id @default(autoincrement())
+  guid                 String    @unique @default(uuid()) @db.Uuid
+  customerId           Int       @unique
+  customer             Customer  @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  
+  couponId             Int?
+  coupon               Coupon?   @relation(fields: [couponId], references: [id])
+  loyaltyPointsApplied Int       @default(0)
+  
+  items                CartItem[]
+  
+  updatedAt            DateTime  @updatedAt
+}
+
+model CartItem {
+  id         Int       @id @default(autoincrement())
+  guid       String    @unique @default(uuid()) @db.Uuid
+  cartId     Int
+  cart       Cart      @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  
+  productId  Int
+  product    Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  quantity   Int       @default(1)
+  
+  extras     CartItemExtra[]
+}
+
+model CartItemExtra {
+  id         Int       @id @default(autoincrement())
+  cartItemId Int
+  cartItem   CartItem  @relation(fields: [cartItemId], references: [id], onDelete: Cascade)
+  
+  extraId    Int
+  extra      Extra     @relation(fields: [extraId], references: [id], onDelete: Cascade)
+}
+
+// ------------------------------------------
+// ORDER
+// ------------------------------------------
+
+enum OrderType {
+  PICKUP
+  DELIVERY
+}
+
+enum PaymentMethod {
+  CASH
+  VISA
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  PREPARING
+  READY
+  OUT_FOR_DELIVERY
+  DELIVERED
+  CANCELLED
+}
+
+enum OrderAction {
+  CREATE
+  CANCEL
+  STATUS_CHANGE
+  PAYMENT_CHANGE
+}
+
+model Order {
+  id                   Int           @id @default(autoincrement())
+  guid                 String        @unique @default(uuid()) @db.Uuid
+  orderCode            String        @unique // e.g. ORD-12345
+  
+  customerId           Int
+  customer             Customer      @relation(fields: [customerId], references: [id])
+  
+  addressId            Int?
+  address              Address?      @relation(fields: [addressId], references: [id])
+  
+  orderType            OrderType
+  paymentMethod        PaymentMethod
+  status               OrderStatus   @default(PENDING)
+  
+  // Financials (Frozen at checkout)
+  subtotal             Decimal       @db.Decimal(10, 2)
+  discount             Decimal       @default(0.0) @db.Decimal(10, 2)
+  couponDiscount       Decimal       @default(0.0) @db.Decimal(10, 2)
+  loyaltyDiscount      Decimal       @default(0.0) @db.Decimal(10, 2)
+  deliveryFees         Decimal       @default(0.0) @db.Decimal(10, 2)
+  grandTotal           Decimal       @db.Decimal(10, 2)
+  
+  // References
+  couponId             Int?
+  coupon               Coupon?       @relation(fields: [couponId], references: [id])
+  loyaltyPointsUsed    Int           @default(0)
+  
+  // Metadata
+  orderNotes           String?       @db.Text
+  estimatedPrepTime    Int           @default(0) // Minutes
+  
+  // Relations
+  items                OrderItem[]
+  statusHistory        OrderStatusHistory[]
+  activityLogs         OrderActivityLog[]
+  
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
+  isDeleted            Boolean       @default(false)
+}
+
+model OrderItem {
+  id         Int       @id @default(autoincrement())
+  guid       String    @unique @default(uuid()) @db.Uuid
+  orderId    Int
+  order      Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  
+  productId  Int
+  product    Product   @relation(fields: [productId], references: [id])
+  
+  quantity   Int
+  unitPrice  Decimal   @db.Decimal(10, 2) // Frozen price
+  totalPrice Decimal   @db.Decimal(10, 2) // qty * unitPrice
+  
+  extras     OrderItemExtra[]
+}
+
+model OrderItemExtra {
+  id          Int       @id @default(autoincrement())
+  orderItemId Int
+  orderItem   OrderItem @relation(fields: [orderItemId], references: [id], onDelete: Cascade)
+  
+  extraId     Int
+  extra       Extra     @relation(fields: [extraId], references: [id])
+  price       Decimal   @db.Decimal(10, 2) // Frozen extra price
+}
+
+model OrderStatusHistory {
+  id          Int         @id @default(autoincrement())
+  orderId     Int
+  order       Order       @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  
+  oldStatus   OrderStatus?
+  newStatus   OrderStatus
+  
+  changedBy   String      @db.Uuid // Admin or Customer UUID
+  changedAt   DateTime    @default(now())
+}
+
+model OrderActivityLog {
+  id          Int          @id @default(autoincrement())
+  orderId     Int
+  order       Order        @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  
+  action      OrderAction
+  adminId     String?      @db.Uuid
+  customerId  String?      @db.Uuid
+  details     Json?
+  
+  createdAt   DateTime     @default(now())
+}
+

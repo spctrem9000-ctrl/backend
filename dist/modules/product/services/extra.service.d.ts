@@ -1,0 +1,144 @@
+import { PrismaService } from '../../../core/prisma/prisma.service';
+import { CreateExtraGroupDto } from '../dto/create-extra-group.dto';
+import { UpdateExtraGroupDto } from '../dto/update-extra-group.dto';
+import { CreateExtraDto } from '../dto/create-extra.dto';
+import { UpdateExtraDto } from '../dto/update-extra.dto';
+export declare class ExtraService {
+    private prisma;
+    constructor(prisma: PrismaService);
+    createGroup(dto: CreateExtraGroupDto, adminId: string): Promise<{
+        id: number;
+        guid: string;
+        createdAt: Date;
+        updatedAt: Date;
+        createdBy: string | null;
+        isDeleted: boolean;
+        nameAr: string;
+        nameEn: string;
+        sortOrder: number;
+        isAvailable: boolean;
+        selectionType: import(".prisma/client").$Enums.SelectionType;
+        isRequired: boolean;
+        minSelection: number;
+        maxSelection: number;
+    }>;
+    updateGroup(id: number, dto: UpdateExtraGroupDto, _adminId: string): Promise<{
+        id: number;
+        guid: string;
+        createdAt: Date;
+        updatedAt: Date;
+        createdBy: string | null;
+        isDeleted: boolean;
+        nameAr: string;
+        nameEn: string;
+        sortOrder: number;
+        isAvailable: boolean;
+        selectionType: import(".prisma/client").$Enums.SelectionType;
+        isRequired: boolean;
+        minSelection: number;
+        maxSelection: number;
+    }>;
+    deleteGroup(id: number, _adminId: string): Promise<{
+        id: number;
+        guid: string;
+        createdAt: Date;
+        updatedAt: Date;
+        createdBy: string | null;
+        isDeleted: boolean;
+        nameAr: string;
+        nameEn: string;
+        sortOrder: number;
+        isAvailable: boolean;
+        selectionType: import(".prisma/client").$Enums.SelectionType;
+        isRequired: boolean;
+        minSelection: number;
+        maxSelection: number;
+    }>;
+    getGroups(includeDeleted?: boolean): Promise<({
+        extras: {
+            id: number;
+            guid: string;
+            createdAt: Date;
+            updatedAt: Date;
+            createdBy: string | null;
+            isDeleted: boolean;
+            nameAr: string;
+            nameEn: string;
+            sortOrder: number;
+            isAvailable: boolean;
+            imageUrl: string | null;
+            price: import("@prisma/client/runtime/library").Decimal;
+            extraGroupId: number;
+        }[];
+    } & {
+        id: number;
+        guid: string;
+        createdAt: Date;
+        updatedAt: Date;
+        createdBy: string | null;
+        isDeleted: boolean;
+        nameAr: string;
+        nameEn: string;
+        sortOrder: number;
+        isAvailable: boolean;
+        selectionType: import(".prisma/client").$Enums.SelectionType;
+        isRequired: boolean;
+        minSelection: number;
+        maxSelection: number;
+    })[]>;
+    createExtra(groupId: number, dto: CreateExtraDto, adminId: string): Promise<{
+        id: number;
+        guid: string;
+        createdAt: Date;
+        updatedAt: Date;
+        createdBy: string | null;
+        isDeleted: boolean;
+        nameAr: string;
+        nameEn: string;
+        sortOrder: number;
+        isAvailable: boolean;
+        imageUrl: string | null;
+        price: import("@prisma/client/runtime/library").Decimal;
+        extraGroupId: number;
+    }>;
+    updateExtra(id: number, dto: UpdateExtraDto, _adminId: string): Promise<{
+        id: number;
+        guid: string;
+        createdAt: Date;
+        updatedAt: Date;
+        createdBy: string | null;
+        isDeleted: boolean;
+        nameAr: string;
+        nameEn: string;
+        sortOrder: number;
+        isAvailable: boolean;
+        imageUrl: string | null;
+        price: import("@prisma/client/runtime/library").Decimal;
+        extraGroupId: number;
+    }>;
+    deleteExtra(id: number, _adminId: string): Promise<{
+        id: number;
+        guid: string;
+        createdAt: Date;
+        updatedAt: Date;
+        createdBy: string | null;
+        isDeleted: boolean;
+        nameAr: string;
+        nameEn: string;
+        sortOrder: number;
+        isAvailable: boolean;
+        imageUrl: string | null;
+        price: import("@prisma/client/runtime/library").Decimal;
+        extraGroupId: number;
+    }>;
+    linkGroupToProduct(productId: number, groupId: number): Promise<{
+        createdAt: Date;
+        productId: number;
+        extraGroupId: number;
+    }>;
+    unlinkGroupFromProduct(productId: number, groupId: number): Promise<{
+        createdAt: Date;
+        productId: number;
+        extraGroupId: number;
+    } | null>;
+}
