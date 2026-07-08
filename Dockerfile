@@ -1,7 +1,7 @@
 # Builder stage
 FROM node:20-alpine AS builder
+RUN apk add --no-cache openssl
 WORKDIR /usr/src/app
-
 COPY package.json package-lock.json ./
 COPY prisma ./prisma/
 RUN npm ci
@@ -12,6 +12,7 @@ RUN npm run build
 
 # Production stage
 FROM node:20-alpine AS runner
+RUN apk add --no-cache openssl
 WORKDIR /usr/src/app
 ENV NODE_ENV production
 
