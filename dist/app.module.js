@@ -26,6 +26,7 @@ const loyalty_module_1 = require("./modules/loyalty/loyalty.module");
 const marketing_module_1 = require("./modules/marketing/marketing.module");
 const engagement_module_1 = require("./modules/engagement/engagement.module");
 const cms_module_1 = require("./modules/cms/cms.module");
+const admin_module_1 = require("./modules/admin/admin.module");
 const serve_static_1 = require("@nestjs/serve-static");
 const path_1 = require("path");
 let AppModule = class AppModule {
@@ -63,6 +64,7 @@ exports.AppModule = AppModule = __decorate([
             marketing_module_1.MarketingModule,
             engagement_module_1.EngagementModule,
             cms_module_1.CmsModule,
+            admin_module_1.AdminModule,
         ],
         controllers: [],
         providers: [

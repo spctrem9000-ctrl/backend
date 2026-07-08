@@ -18,6 +18,7 @@ import { LoyaltyModule } from './modules/loyalty/loyalty.module';
 import { MarketingModule } from './modules/marketing/marketing.module';
 import { EngagementModule } from './modules/engagement/engagement.module';
 import { CmsModule } from './modules/cms/cms.module';
+import { AdminModule } from './modules/admin/admin.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
@@ -58,6 +59,7 @@ import { join } from 'path';
     MarketingModule,
     EngagementModule,
     CmsModule,
+    AdminModule,
   ],
   controllers: [],
   providers: [
