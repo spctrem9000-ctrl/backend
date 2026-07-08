@@ -22,4 +22,4 @@ COPY --from=builder /usr/src/app/prisma ./prisma
 COPY package.json ./
 
 EXPOSE 3000
-CMD ["npm", "run", "start:prod"]
+CMD ["sh", "-c", "npx prisma db push --accept-data-loss && npm run start:prod"]
