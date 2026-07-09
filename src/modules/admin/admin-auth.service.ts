@@ -48,13 +48,13 @@ export class AdminAuthService implements OnModuleInit {
       throw new UnauthorizedException('Invalid admin credentials');
     }
 
-    const tokens = await this.generateTokens(admin.id, admin.email, 'ADMIN');
+    const tokens = await this.generateTokens(admin.guid, admin.email, 'ADMIN');
 
     const { password, ...profile } = admin;
     return { profile, tokens };
   }
 
-  private async generateTokens(userId: number, email: string, role: string) {
+  private async generateTokens(userId: string | number, email: string, role: string) {
     const payload = { sub: userId, email, role };
     const [accessToken, refreshToken] = await Promise.all([
       this.jwtService.signAsync(payload, {
