@@ -24,7 +24,7 @@ async function bootstrap() {
   // Security
   app.use(helmet());
   app.enableCors({
-    origin: '*', // Adjust for production
+    origin: true, // Dynamically reflects origin, fixes CORS with credentials
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   });

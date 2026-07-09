@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { TagService } from '../services/tag.service';
 import { NoteService } from '../services/note.service';
+import { CustomerService } from '../customer.service';
 import { CreateCustomerTagDto } from '../dto/create-tag.dto';
 import { CreateCustomerNoteDto } from '../dto/create-note.dto';
 import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
@@ -27,7 +28,14 @@ export class AdminCustomerController {
   constructor(
     private readonly tagService: TagService,
     private readonly noteService: NoteService,
+    private readonly customerService: CustomerService,
   ) {}
+
+  @Get()
+  @ApiOperation({ summary: 'Get all customers' })
+  getAllCustomers() {
+    return this.customerService.getAllCustomers();
+  }
 
   // TAGS
   @Post('tags')

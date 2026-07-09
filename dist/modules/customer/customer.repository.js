@@ -20,6 +20,12 @@ let CustomerRepository = class CustomerRepository {
     async create(data) {
         return this.prisma.customer.create({ data });
     }
+    async findAll() {
+        return this.prisma.customer.findMany({
+            where: { isDeleted: false },
+            orderBy: { createdAt: 'desc' },
+        });
+    }
     async findByPhone(phone) {
         return this.prisma.customer.findUnique({
             where: { phone, isDeleted: false },

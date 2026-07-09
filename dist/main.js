@@ -22,7 +22,7 @@ async function bootstrap() {
     const env = configService.get('NODE_ENV') || 'development';
     app.use((0, helmet_1.default)());
     app.enableCors({
-        origin: '*',
+        origin: true,
         methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
         credentials: true,
     });

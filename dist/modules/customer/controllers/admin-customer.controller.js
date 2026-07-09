@@ -16,6 +16,7 @@ exports.AdminCustomerController = void 0;
 const common_1 = require("@nestjs/common");
 const tag_service_1 = require("../services/tag.service");
 const note_service_1 = require("../services/note.service");
+const customer_service_1 = require("../customer.service");
 const create_tag_dto_1 = require("../dto/create-tag.dto");
 const create_note_dto_1 = require("../dto/create-note.dto");
 const jwt_auth_guard_1 = require("../../../common/guards/jwt-auth.guard");
@@ -26,9 +27,14 @@ const swagger_1 = require("@nestjs/swagger");
 let AdminCustomerController = class AdminCustomerController {
     tagService;
     noteService;
-    constructor(tagService, noteService) {
+    customerService;
+    constructor(tagService, noteService, customerService) {
         this.tagService = tagService;
         this.noteService = noteService;
+        this.customerService = customerService;
+    }
+    getAllCustomers() {
+        return this.customerService.getAllCustomers();
     }
     createTag(dto) {
         return this.tagService.createTag(dto);
@@ -53,6 +59,13 @@ let AdminCustomerController = class AdminCustomerController {
     }
 };
 exports.AdminCustomerController = AdminCustomerController;
+__decorate([
+    (0, common_1.Get)(),
+    (0, swagger_1.ApiOperation)({ summary: 'Get all customers' }),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], AdminCustomerController.prototype, "getAllCustomers", null);
 __decorate([
     (0, common_1.Post)('tags'),
     (0, swagger_1.ApiOperation)({ summary: 'Create a new customer tag' }),
@@ -119,6 +132,7 @@ exports.AdminCustomerController = AdminCustomerController = __decorate([
     (0, roles_decorator_1.Roles)('ADMIN'),
     (0, common_1.Controller)('admin/customers'),
     __metadata("design:paramtypes", [tag_service_1.TagService,
-        note_service_1.NoteService])
+        note_service_1.NoteService,
+        customer_service_1.CustomerService])
 ], AdminCustomerController);
 //# sourceMappingURL=admin-customer.controller.js.map

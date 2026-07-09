@@ -25,6 +25,13 @@ let CustomerService = class CustomerService {
         const { passwordHash: _ph, hashedRefreshToken: _hrt, isDeleted: _id, ...safeCustomer } = customer;
         return safeCustomer;
     }
+    async getAllCustomers() {
+        const customers = await this.customerRepository.findAll();
+        return customers.map(c => {
+            const { passwordHash: _ph, hashedRefreshToken: _hrt, isDeleted: _id, ...safeCustomer } = c;
+            return safeCustomer;
+        });
+    }
     async updateProfile(customerId, updateDto) {
         const updated = await this.customerRepository.update(customerId, updateDto);
         const { passwordHash: _ph, hashedRefreshToken: _hrt, isDeleted: _id, ...safeCustomer } = updated;

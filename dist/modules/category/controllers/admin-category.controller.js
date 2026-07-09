@@ -31,6 +31,9 @@ let AdminCategoryController = class AdminCategoryController {
     create(dto, user) {
         return this.categoryService.create(dto, user.id);
     }
+    findAll() {
+        return this.categoryService.searchCategories('');
+    }
     search(query) {
         return this.categoryService.searchCategories(query);
     }
@@ -66,6 +69,13 @@ __decorate([
     __metadata("design:paramtypes", [create_category_dto_1.CreateCategoryDto, Object]),
     __metadata("design:returntype", void 0)
 ], AdminCategoryController.prototype, "create", null);
+__decorate([
+    (0, common_1.Get)(),
+    (0, swagger_1.ApiOperation)({ summary: 'Get all categories' }),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], AdminCategoryController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)('search'),
     (0, swagger_1.ApiOperation)({ summary: 'Search categories by name' }),

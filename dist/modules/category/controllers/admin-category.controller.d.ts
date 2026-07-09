@@ -25,6 +25,24 @@ export declare class AdminCategoryController {
         displayOrder: number;
         isActive: boolean;
     }>;
+    findAll(): Promise<{
+        id: number;
+        guid: string;
+        createdAt: Date;
+        updatedAt: Date;
+        createdBy: string | null;
+        updatedBy: string | null;
+        isDeleted: boolean;
+        nameAr: string;
+        nameEn: string;
+        descriptionAr: string | null;
+        descriptionEn: string | null;
+        isFeatured: boolean;
+        categoryCode: string;
+        image: string | null;
+        displayOrder: number;
+        isActive: boolean;
+    }[]>;
     search(query: string): Promise<{
         id: number;
         guid: string;

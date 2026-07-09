@@ -21,6 +21,19 @@ export class CustomerService {
     return safeCustomer;
   }
 
+  async getAllCustomers() {
+    const customers = await this.customerRepository.findAll();
+    return customers.map(c => {
+      const {
+        passwordHash: _ph,
+        hashedRefreshToken: _hrt,
+        isDeleted: _id,
+        ...safeCustomer
+      } = c;
+      return safeCustomer;
+    });
+  }
+
   async updateProfile(customerId: number, updateDto: UpdateProfileDto) {
     const updated = await this.customerRepository.update(customerId, updateDto);
     const {

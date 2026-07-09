@@ -34,6 +34,12 @@ export class AdminCategoryController {
     return this.categoryService.create(dto, user.id);
   }
 
+  @Get()
+  @ApiOperation({ summary: 'Get all categories' })
+  findAll() {
+    return this.categoryService.searchCategories('');
+  }
+
   @Get('search')
   @ApiOperation({ summary: 'Search categories by name' })
   search(@Query('q') query: string) {
