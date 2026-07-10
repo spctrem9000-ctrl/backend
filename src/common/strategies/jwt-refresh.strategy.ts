@@ -14,6 +14,7 @@ export class JwtRefreshStrategy extends PassportStrategy(
       jwtFromRequest: ExtractJwt.fromBodyField('refreshToken'), // As per user approval, expecting in JSON body
       ignoreExpiration: false,
       secretOrKey: configService.get<string>('JWT_REFRESH_SECRET'),
+      passReqToCallback: true,
     } as any);
   }
 
