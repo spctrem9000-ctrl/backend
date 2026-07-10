@@ -8,6 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminHomeController = void 0;
 const common_1 = require("@nestjs/common");
@@ -22,7 +25,19 @@ let AdminHomeController = class AdminHomeController {
         this.homeBuilderService = homeBuilderService;
     }
     getLayout() {
-        return this.homeBuilderService.getHomeLayout();
+        return this.homeBuilderService.getAdminLayout();
+    }
+    createSection(data) {
+        return this.homeBuilderService.createSection(data);
+    }
+    reorderSections(body) {
+        return this.homeBuilderService.reorderSections(body.orderedIds);
+    }
+    updateSection(id, data) {
+        return this.homeBuilderService.updateSection(id, data);
+    }
+    deleteSection(id) {
+        return this.homeBuilderService.deleteSection(id);
     }
 };
 exports.AdminHomeController = AdminHomeController;
@@ -33,6 +48,39 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], AdminHomeController.prototype, "getLayout", null);
+__decorate([
+    (0, common_1.Post)(),
+    (0, swagger_1.ApiOperation)({ summary: 'Create section' }),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], AdminHomeController.prototype, "createSection", null);
+__decorate([
+    (0, common_1.Put)('reorder'),
+    (0, swagger_1.ApiOperation)({ summary: 'Reorder sections' }),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], AdminHomeController.prototype, "reorderSections", null);
+__decorate([
+    (0, common_1.Put)(':id'),
+    (0, swagger_1.ApiOperation)({ summary: 'Update section' }),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, Object]),
+    __metadata("design:returntype", void 0)
+], AdminHomeController.prototype, "updateSection", null);
+__decorate([
+    (0, common_1.Delete)(':id'),
+    (0, swagger_1.ApiOperation)({ summary: 'Delete section' }),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", void 0)
+], AdminHomeController.prototype, "deleteSection", null);
 exports.AdminHomeController = AdminHomeController = __decorate([
     (0, swagger_1.ApiTags)('Admin Home Builder'),
     (0, common_1.Controller)('admin/home'),

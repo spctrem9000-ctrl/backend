@@ -17,15 +17,34 @@ const admin_dashboard_controller_1 = require("./admin-dashboard.controller");
 const admin_dashboard_service_1 = require("./admin-dashboard.service");
 const admin_profile_controller_1 = require("./admin-profile.controller");
 const admin_profile_service_1 = require("./admin-profile.service");
+const admin_settings_controller_1 = require("./admin-settings.controller");
+const admin_settings_service_1 = require("./admin-settings.service");
 let AdminModule = class AdminModule {
 };
 exports.AdminModule = AdminModule;
 exports.AdminModule = AdminModule = __decorate([
     (0, common_1.Module)({
         imports: [prisma_module_1.PrismaModule, jwt_1.JwtModule.register({})],
-        controllers: [admin_auth_controller_1.AdminAuthController, admin_dashboard_controller_1.AdminDashboardController, admin_profile_controller_1.AdminProfileController],
-        providers: [admin_auth_service_1.AdminAuthService, admin_repository_1.AdminRepository, admin_dashboard_service_1.AdminDashboardService, admin_profile_service_1.AdminProfileService],
-        exports: [admin_auth_service_1.AdminAuthService, admin_repository_1.AdminRepository, admin_dashboard_service_1.AdminDashboardService, admin_profile_service_1.AdminProfileService],
+        controllers: [
+            admin_auth_controller_1.AdminAuthController,
+            admin_dashboard_controller_1.AdminDashboardController,
+            admin_profile_controller_1.AdminProfileController,
+            admin_settings_controller_1.AdminSettingsController,
+        ],
+        providers: [
+            admin_auth_service_1.AdminAuthService,
+            admin_repository_1.AdminRepository,
+            admin_dashboard_service_1.AdminDashboardService,
+            admin_profile_service_1.AdminProfileService,
+            admin_settings_service_1.AdminSettingsService,
+        ],
+        exports: [
+            admin_auth_service_1.AdminAuthService,
+            admin_repository_1.AdminRepository,
+            admin_dashboard_service_1.AdminDashboardService,
+            admin_profile_service_1.AdminProfileService,
+            admin_settings_service_1.AdminSettingsService,
+        ],
     })
 ], AdminModule);
 //# sourceMappingURL=admin.module.js.map

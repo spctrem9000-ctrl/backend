@@ -9,10 +9,10 @@ export declare class CustomerBannerController {
         updatedAt: Date;
         titleAr: string | null;
         titleEn: string | null;
-        sortOrder: number;
         isActive: boolean;
-        imageUrl: string;
         targetType: import(".prisma/client").$Enums.BannerTargetType;
+        sortOrder: number;
+        imageUrl: string;
         subtitleAr: string | null;
         subtitleEn: string | null;
         buttonText: string | null;

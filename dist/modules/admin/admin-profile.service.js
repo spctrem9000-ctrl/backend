@@ -68,7 +68,9 @@ let AdminProfileService = class AdminProfileService {
         });
     }
     async updatePassword(adminId, oldPassword, newPassword) {
-        const admin = await this.prisma.admin.findUnique({ where: { guid: adminId } });
+        const admin = await this.prisma.admin.findUnique({
+            where: { guid: adminId },
+        });
         if (!admin)
             throw new common_1.NotFoundException('Admin not found');
         const isValid = await bcrypt.compare(oldPassword, admin.password);

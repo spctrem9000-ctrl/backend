@@ -63,7 +63,9 @@ __decorate([
     __param(0, (0, common_1.UploadedFile)(new common_1.ParseFilePipe({
         validators: [
             new common_1.MaxFileSizeValidator({ maxSize: 5 * 1024 * 1024 }),
-            new common_1.FileTypeValidator({ fileType: '.(png|jpeg|jpg|webp)' }),
+            new common_1.FileTypeValidator({
+                fileType: '.(png|jpeg|jpg|webp|mp3|wav|ogg)',
+            }),
         ],
     }))),
     __param(1, (0, common_1.Query)('folder')),
@@ -94,7 +96,9 @@ __decorate([
     __param(0, (0, common_1.UploadedFiles)(new common_1.ParseFilePipe({
         validators: [
             new common_1.MaxFileSizeValidator({ maxSize: 5 * 1024 * 1024 }),
-            new common_1.FileTypeValidator({ fileType: '.(png|jpeg|jpg|webp)' }),
+            new common_1.FileTypeValidator({
+                fileType: '.(png|jpeg|jpg|webp|mp3|wav|ogg)',
+            }),
         ],
     }))),
     __param(1, (0, common_1.Query)('folder')),

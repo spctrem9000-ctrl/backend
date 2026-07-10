@@ -32,6 +32,7 @@ let ProductRepository = class ProductRepository {
                 images: { orderBy: { sortOrder: 'asc' } },
                 insight: true,
                 priceHistory: { orderBy: { createdAt: 'desc' }, take: 5 },
+                extraGroups: { include: { extraGroup: true } },
             },
         });
     }

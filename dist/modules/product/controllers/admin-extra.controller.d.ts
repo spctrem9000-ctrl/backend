@@ -37,8 +37,8 @@ export declare class AdminExtraController {
             sortOrder: number;
             isAvailable: boolean;
             imageUrl: string | null;
-            price: import("@prisma/client/runtime/library").Decimal;
             extraGroupId: number;
+            price: import("@prisma/client/runtime/library").Decimal;
         }[];
     } & {
         id: number;
@@ -106,8 +106,8 @@ export declare class AdminExtraController {
         sortOrder: number;
         isAvailable: boolean;
         imageUrl: string | null;
-        price: import("@prisma/client/runtime/library").Decimal;
         extraGroupId: number;
+        price: import("@prisma/client/runtime/library").Decimal;
     }>;
     updateExtra(id: number, dto: UpdateExtraDto, user: {
         id: string;
@@ -123,8 +123,8 @@ export declare class AdminExtraController {
         sortOrder: number;
         isAvailable: boolean;
         imageUrl: string | null;
-        price: import("@prisma/client/runtime/library").Decimal;
         extraGroupId: number;
+        price: import("@prisma/client/runtime/library").Decimal;
     }>;
     deleteExtra(id: number, user: {
         id: string;
@@ -140,8 +140,8 @@ export declare class AdminExtraController {
         sortOrder: number;
         isAvailable: boolean;
         imageUrl: string | null;
-        price: import("@prisma/client/runtime/library").Decimal;
         extraGroupId: number;
+        price: import("@prisma/client/runtime/library").Decimal;
     }>;
     linkGroupToProduct(productId: number, groupId: number): Promise<{
         createdAt: Date;

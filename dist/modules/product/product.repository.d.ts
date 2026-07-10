@@ -14,6 +14,7 @@ export declare class ProductRepository {
             createdBy: string | null;
             updatedBy: string | null;
             isDeleted: boolean;
+            isActive: boolean;
             nameAr: string;
             nameEn: string;
             descriptionAr: string | null;
@@ -22,7 +23,6 @@ export declare class ProductRepository {
             categoryCode: string;
             image: string | null;
             displayOrder: number;
-            isActive: boolean;
         };
         images: {
             id: number;
@@ -50,6 +50,28 @@ export declare class ProductRepository {
             revenue: Prisma.Decimal;
             conversionRate: number;
         } | null;
+        extraGroups: ({
+            extraGroup: {
+                id: number;
+                guid: string;
+                createdAt: Date;
+                updatedAt: Date;
+                createdBy: string | null;
+                isDeleted: boolean;
+                nameAr: string;
+                nameEn: string;
+                sortOrder: number;
+                isAvailable: boolean;
+                selectionType: import(".prisma/client").$Enums.SelectionType;
+                isRequired: boolean;
+                minSelection: number;
+                maxSelection: number;
+            };
+        } & {
+            createdAt: Date;
+            productId: number;
+            extraGroupId: number;
+        })[];
     } & {
         id: number;
         guid: string;

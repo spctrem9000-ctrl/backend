@@ -1,4 +1,8 @@
-import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../../core/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
 
@@ -23,8 +27,14 @@ export class AdminProfileService {
     });
   }
 
-  async updatePassword(adminId: string, oldPassword: string, newPassword: string) {
-    const admin = await this.prisma.admin.findUnique({ where: { guid: adminId } });
+  async updatePassword(
+    adminId: string,
+    oldPassword: string,
+    newPassword: string,
+  ) {
+    const admin = await this.prisma.admin.findUnique({
+      where: { guid: adminId },
+    });
     if (!admin) throw new NotFoundException('Admin not found');
 
     const isValid = await bcrypt.compare(oldPassword, admin.password);

@@ -129,8 +129,8 @@ export declare class AdminOrderController {
                     sortOrder: number;
                     isAvailable: boolean;
                     imageUrl: string | null;
-                    price: import("@prisma/client/runtime/library").Decimal;
                     extraGroupId: number;
+                    price: import("@prisma/client/runtime/library").Decimal;
                 };
             } & {
                 id: number;

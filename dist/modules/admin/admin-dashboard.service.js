@@ -39,7 +39,11 @@ let AdminDashboardService = class AdminDashboardService {
             this.prisma.productInsight.findMany({
                 take: 5,
                 orderBy: { purchased: 'desc' },
-                include: { product: { select: { nameEn: true, nameAr: true, mainImage: true, id: true } } },
+                include: {
+                    product: {
+                        select: { nameEn: true, nameAr: true, mainImage: true, id: true },
+                    },
+                },
             }),
         ]);
         return {

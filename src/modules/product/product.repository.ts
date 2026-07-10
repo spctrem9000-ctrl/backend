@@ -22,6 +22,18 @@ export class ProductRepository {
         images: { orderBy: { sortOrder: 'asc' } },
         insight: true,
         priceHistory: { orderBy: { createdAt: 'desc' }, take: 5 },
+        extraGroups: {
+          include: {
+            extraGroup: {
+              include: {
+                extras: {
+                  where: { isDeleted: false },
+                  orderBy: { sortOrder: 'asc' },
+                },
+              },
+            },
+          },
+        },
       },
     });
   }

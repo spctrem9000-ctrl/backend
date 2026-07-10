@@ -15,6 +15,7 @@ export declare class AdminCategoryController {
         createdBy: string | null;
         updatedBy: string | null;
         isDeleted: boolean;
+        isActive: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
@@ -23,7 +24,6 @@ export declare class AdminCategoryController {
         categoryCode: string;
         image: string | null;
         displayOrder: number;
-        isActive: boolean;
     }>;
     findAll(): Promise<{
         id: number;
@@ -33,6 +33,7 @@ export declare class AdminCategoryController {
         createdBy: string | null;
         updatedBy: string | null;
         isDeleted: boolean;
+        isActive: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
@@ -41,7 +42,6 @@ export declare class AdminCategoryController {
         categoryCode: string;
         image: string | null;
         displayOrder: number;
-        isActive: boolean;
     }[]>;
     search(query: string): Promise<{
         id: number;
@@ -51,6 +51,7 @@ export declare class AdminCategoryController {
         createdBy: string | null;
         updatedBy: string | null;
         isDeleted: boolean;
+        isActive: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
@@ -59,7 +60,6 @@ export declare class AdminCategoryController {
         categoryCode: string;
         image: string | null;
         displayOrder: number;
-        isActive: boolean;
     }[]>;
     findOne(id: number): Promise<{
         id: number;
@@ -69,6 +69,7 @@ export declare class AdminCategoryController {
         createdBy: string | null;
         updatedBy: string | null;
         isDeleted: boolean;
+        isActive: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
@@ -77,7 +78,6 @@ export declare class AdminCategoryController {
         categoryCode: string;
         image: string | null;
         displayOrder: number;
-        isActive: boolean;
     }>;
     update(id: number, dto: UpdateCategoryDto, user: {
         id: string;
@@ -89,6 +89,7 @@ export declare class AdminCategoryController {
         createdBy: string | null;
         updatedBy: string | null;
         isDeleted: boolean;
+        isActive: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
@@ -97,7 +98,6 @@ export declare class AdminCategoryController {
         categoryCode: string;
         image: string | null;
         displayOrder: number;
-        isActive: boolean;
     }>;
     remove(id: number, user: {
         id: string;
@@ -109,6 +109,7 @@ export declare class AdminCategoryController {
         createdBy: string | null;
         updatedBy: string | null;
         isDeleted: boolean;
+        isActive: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
@@ -117,7 +118,6 @@ export declare class AdminCategoryController {
         categoryCode: string;
         image: string | null;
         displayOrder: number;
-        isActive: boolean;
     }>;
     restore(id: number, user: {
         id: string;
@@ -129,6 +129,7 @@ export declare class AdminCategoryController {
         createdBy: string | null;
         updatedBy: string | null;
         isDeleted: boolean;
+        isActive: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
@@ -137,7 +138,6 @@ export declare class AdminCategoryController {
         categoryCode: string;
         image: string | null;
         displayOrder: number;
-        isActive: boolean;
     }>;
     changeOrder(id: number, dto: UpdateDisplayOrderDto, user: {
         id: string;
@@ -149,6 +149,7 @@ export declare class AdminCategoryController {
         createdBy: string | null;
         updatedBy: string | null;
         isDeleted: boolean;
+        isActive: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
@@ -157,7 +158,6 @@ export declare class AdminCategoryController {
         categoryCode: string;
         image: string | null;
         displayOrder: number;
-        isActive: boolean;
     }>;
     enable(id: number, user: {
         id: string;
@@ -169,6 +169,7 @@ export declare class AdminCategoryController {
         createdBy: string | null;
         updatedBy: string | null;
         isDeleted: boolean;
+        isActive: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
@@ -177,7 +178,6 @@ export declare class AdminCategoryController {
         categoryCode: string;
         image: string | null;
         displayOrder: number;
-        isActive: boolean;
     }>;
     disable(id: number, user: {
         id: string;
@@ -189,6 +189,7 @@ export declare class AdminCategoryController {
         createdBy: string | null;
         updatedBy: string | null;
         isDeleted: boolean;
+        isActive: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
@@ -197,6 +198,5 @@ export declare class AdminCategoryController {
         categoryCode: string;
         image: string | null;
         displayOrder: number;
-        isActive: boolean;
     }>;
 }

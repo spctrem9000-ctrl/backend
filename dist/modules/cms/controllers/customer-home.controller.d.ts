@@ -44,7 +44,7 @@ export declare class CustomerHomeController {
         titleAr: string | null;
         titleEn: string | null;
         maxItems: number;
-        sortOrder: number;
         isActive: boolean;
+        sortOrder: number;
     })[]>;
 }

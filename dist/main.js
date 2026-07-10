@@ -19,7 +19,6 @@ async function bootstrap() {
     app.useLogger(logger);
     const configService = app.get(config_1.ConfigService);
     const port = configService.get('PORT') || 3000;
-    const env = configService.get('NODE_ENV') || 'development';
     app.use((0, helmet_1.default)());
     app.enableCors({
         origin: true,

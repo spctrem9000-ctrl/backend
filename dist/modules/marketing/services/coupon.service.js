@@ -20,10 +20,76 @@ let CouponService = class CouponService {
     async getAdminCoupons() {
         return this.prisma.coupon.findMany({
             include: {
-                targetProducts: { include: { product: true } },
-                targetCategories: { include: { category: true } },
+                targetProducts: {
+                    include: { product: { select: { id: true, nameEn: true } } },
+                },
+                targetCategories: {
+                    include: { category: { select: { id: true, nameEn: true } } },
+                },
+                targetCustomers: {
+                    include: {
+                        customer: { select: { id: true, name: true, phone: true } },
+                    },
+                },
+            },
+            orderBy: { createdAt: 'desc' },
+        });
+    }
+    async createCoupon(data) {
+        const { productIds, categoryIds, customerIds, ...rest } = data;
+        return this.prisma.coupon.create({
+            data: {
+                ...rest,
+                targetProducts: productIds?.length
+                    ? {
+                        create: productIds.map((id) => ({ productId: id })),
+                    }
+                    : undefined,
+                targetCategories: categoryIds?.length
+                    ? {
+                        create: categoryIds.map((id) => ({ categoryId: id })),
+                    }
+                    : undefined,
+                targetCustomers: customerIds?.length
+                    ? {
+                        create: customerIds.map((id) => ({ customerId: id })),
+                    }
+                    : undefined,
             },
         });
+    }
+    async updateCoupon(id, data) {
+        const { productIds, categoryIds, customerIds, ...rest } = data;
+        if (productIds !== undefined)
+            await this.prisma.couponProduct.deleteMany({ where: { couponId: id } });
+        if (categoryIds !== undefined)
+            await this.prisma.couponCategory.deleteMany({ where: { couponId: id } });
+        if (customerIds !== undefined)
+            await this.prisma.couponCustomer.deleteMany({ where: { couponId: id } });
+        return this.prisma.coupon.update({
+            where: { id },
+            data: {
+                ...rest,
+                targetProducts: productIds?.length
+                    ? {
+                        create: productIds.map((pid) => ({ productId: pid })),
+                    }
+                    : undefined,
+                targetCategories: categoryIds?.length
+                    ? {
+                        create: categoryIds.map((cid) => ({ categoryId: cid })),
+                    }
+                    : undefined,
+                targetCustomers: customerIds?.length
+                    ? {
+                        create: customerIds.map((cid) => ({ customerId: cid })),
+                    }
+                    : undefined,
+            },
+        });
+    }
+    async deleteCoupon(id) {
+        return this.prisma.coupon.delete({ where: { id } });
     }
 };
 exports.CouponService = CouponService;

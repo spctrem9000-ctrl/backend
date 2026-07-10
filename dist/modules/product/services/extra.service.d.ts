@@ -67,8 +67,8 @@ export declare class ExtraService {
             sortOrder: number;
             isAvailable: boolean;
             imageUrl: string | null;
-            price: import("@prisma/client/runtime/library").Decimal;
             extraGroupId: number;
+            price: import("@prisma/client/runtime/library").Decimal;
         }[];
     } & {
         id: number;
@@ -98,8 +98,8 @@ export declare class ExtraService {
         sortOrder: number;
         isAvailable: boolean;
         imageUrl: string | null;
-        price: import("@prisma/client/runtime/library").Decimal;
         extraGroupId: number;
+        price: import("@prisma/client/runtime/library").Decimal;
     }>;
     updateExtra(id: number, dto: UpdateExtraDto, _adminId: string): Promise<{
         id: number;
@@ -113,8 +113,8 @@ export declare class ExtraService {
         sortOrder: number;
         isAvailable: boolean;
         imageUrl: string | null;
-        price: import("@prisma/client/runtime/library").Decimal;
         extraGroupId: number;
+        price: import("@prisma/client/runtime/library").Decimal;
     }>;
     deleteExtra(id: number, _adminId: string): Promise<{
         id: number;
@@ -128,8 +128,8 @@ export declare class ExtraService {
         sortOrder: number;
         isAvailable: boolean;
         imageUrl: string | null;
-        price: import("@prisma/client/runtime/library").Decimal;
         extraGroupId: number;
+        price: import("@prisma/client/runtime/library").Decimal;
     }>;
     linkGroupToProduct(productId: number, groupId: number): Promise<{
         createdAt: Date;

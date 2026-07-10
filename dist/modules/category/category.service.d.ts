@@ -12,6 +12,7 @@ export declare class CategoryService {
         createdBy: string | null;
         updatedBy: string | null;
         isDeleted: boolean;
+        isActive: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
@@ -20,7 +21,6 @@ export declare class CategoryService {
         categoryCode: string;
         image: string | null;
         displayOrder: number;
-        isActive: boolean;
     }>;
     update(id: number, dto: UpdateCategoryDto, adminId: string): Promise<{
         id: number;
@@ -30,6 +30,7 @@ export declare class CategoryService {
         createdBy: string | null;
         updatedBy: string | null;
         isDeleted: boolean;
+        isActive: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
@@ -38,7 +39,6 @@ export declare class CategoryService {
         categoryCode: string;
         image: string | null;
         displayOrder: number;
-        isActive: boolean;
     }>;
     delete(id: number, adminId: string): Promise<{
         id: number;
@@ -48,6 +48,7 @@ export declare class CategoryService {
         createdBy: string | null;
         updatedBy: string | null;
         isDeleted: boolean;
+        isActive: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
@@ -56,7 +57,6 @@ export declare class CategoryService {
         categoryCode: string;
         image: string | null;
         displayOrder: number;
-        isActive: boolean;
     }>;
     restore(id: number, adminId: string): Promise<{
         id: number;
@@ -66,6 +66,7 @@ export declare class CategoryService {
         createdBy: string | null;
         updatedBy: string | null;
         isDeleted: boolean;
+        isActive: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
@@ -74,7 +75,6 @@ export declare class CategoryService {
         categoryCode: string;
         image: string | null;
         displayOrder: number;
-        isActive: boolean;
     }>;
     getDetails(id: number): Promise<{
         id: number;
@@ -84,6 +84,7 @@ export declare class CategoryService {
         createdBy: string | null;
         updatedBy: string | null;
         isDeleted: boolean;
+        isActive: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
@@ -92,7 +93,6 @@ export declare class CategoryService {
         categoryCode: string;
         image: string | null;
         displayOrder: number;
-        isActive: boolean;
     }>;
     searchCategories(query: string): Promise<{
         id: number;
@@ -102,6 +102,7 @@ export declare class CategoryService {
         createdBy: string | null;
         updatedBy: string | null;
         isDeleted: boolean;
+        isActive: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
@@ -110,7 +111,6 @@ export declare class CategoryService {
         categoryCode: string;
         image: string | null;
         displayOrder: number;
-        isActive: boolean;
     }[]>;
     toggleActive(id: number, isActive: boolean, adminId: string): Promise<{
         id: number;
@@ -120,6 +120,7 @@ export declare class CategoryService {
         createdBy: string | null;
         updatedBy: string | null;
         isDeleted: boolean;
+        isActive: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
@@ -128,7 +129,6 @@ export declare class CategoryService {
         categoryCode: string;
         image: string | null;
         displayOrder: number;
-        isActive: boolean;
     }>;
     changeDisplayOrder(id: number, newOrder: number, adminId: string): Promise<{
         id: number;
@@ -138,6 +138,7 @@ export declare class CategoryService {
         createdBy: string | null;
         updatedBy: string | null;
         isDeleted: boolean;
+        isActive: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
@@ -146,7 +147,6 @@ export declare class CategoryService {
         categoryCode: string;
         image: string | null;
         displayOrder: number;
-        isActive: boolean;
     }>;
     getActiveCategories(): Promise<{
         id: number;
@@ -156,6 +156,7 @@ export declare class CategoryService {
         createdBy: string | null;
         updatedBy: string | null;
         isDeleted: boolean;
+        isActive: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
@@ -164,7 +165,6 @@ export declare class CategoryService {
         categoryCode: string;
         image: string | null;
         displayOrder: number;
-        isActive: boolean;
     }[]>;
     getFeaturedCategories(): Promise<{
         id: number;
@@ -174,6 +174,7 @@ export declare class CategoryService {
         createdBy: string | null;
         updatedBy: string | null;
         isDeleted: boolean;
+        isActive: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
@@ -182,7 +183,6 @@ export declare class CategoryService {
         categoryCode: string;
         image: string | null;
         displayOrder: number;
-        isActive: boolean;
     }[]>;
     private validateUniqueName;
     private handleDisplayOrderCollision;

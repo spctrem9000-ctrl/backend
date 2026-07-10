@@ -17,14 +17,82 @@ let HomeBuilderService = class HomeBuilderService {
     constructor(prisma) {
         this.prisma = prisma;
     }
+    async getAdminLayout() {
+        return this.prisma.homeSection.findMany({
+            orderBy: { sortOrder: 'asc' },
+            include: {
+                customProducts: {
+                    orderBy: { sortOrder: 'asc' },
+                    include: {
+                        product: {
+                            select: { id: true, nameEn: true, nameAr: true, mainImage: true },
+                        },
+                    },
+                },
+            },
+        });
+    }
     async getHomeLayout() {
         return this.prisma.homeSection.findMany({
             where: { isActive: true },
             orderBy: { sortOrder: 'asc' },
             include: {
-                customProducts: { include: { product: true } },
+                customProducts: {
+                    orderBy: { sortOrder: 'asc' },
+                    include: { product: true },
+                },
             },
         });
+    }
+    async createSection(data) {
+        const count = await this.prisma.homeSection.count();
+        const { productIds, ...rest } = data;
+        return this.prisma.homeSection.create({
+            data: {
+                ...rest,
+                sortOrder: count,
+                customProducts: productIds?.length
+                    ? {
+                        create: productIds.map((id, idx) => ({
+                            productId: id,
+                            sortOrder: idx,
+                        })),
+                    }
+                    : undefined,
+            },
+        });
+    }
+    async updateSection(id, data) {
+        const { productIds, ...rest } = data;
+        if (productIds !== undefined) {
+            await this.prisma.homeSectionProduct.deleteMany({
+                where: { homeSectionId: id },
+            });
+        }
+        return this.prisma.homeSection.update({
+            where: { id },
+            data: {
+                ...rest,
+                customProducts: productIds?.length
+                    ? {
+                        create: productIds.map((pid, idx) => ({
+                            productId: pid,
+                            sortOrder: idx,
+                        })),
+                    }
+                    : undefined,
+            },
+        });
+    }
+    async deleteSection(id) {
+        return this.prisma.homeSection.delete({ where: { id } });
+    }
+    async reorderSections(orderedIds) {
+        const updates = orderedIds.map((id, index) => this.prisma.homeSection.update({
+            where: { id },
+            data: { sortOrder: index },
+        }));
+        return this.prisma.$transaction(updates);
     }
 };
 exports.HomeBuilderService = HomeBuilderService;

@@ -2,6 +2,31 @@ import { PrismaService } from '../../../core/prisma/prisma.service';
 export declare class HomeBuilderService {
     private prisma;
     constructor(prisma: PrismaService);
+    getAdminLayout(): Promise<({
+        customProducts: ({
+            product: {
+                id: number;
+                nameAr: string;
+                nameEn: string;
+                mainImage: string | null;
+            };
+        } & {
+            productId: number;
+            sortOrder: number;
+            homeSectionId: number;
+        })[];
+    } & {
+        id: number;
+        guid: string;
+        createdAt: Date;
+        updatedAt: Date;
+        type: import(".prisma/client").$Enums.HomeSectionType;
+        titleAr: string | null;
+        titleEn: string | null;
+        maxItems: number;
+        isActive: boolean;
+        sortOrder: number;
+    })[]>;
     getHomeLayout(): Promise<({
         customProducts: ({
             product: {
@@ -44,7 +69,55 @@ export declare class HomeBuilderService {
         titleAr: string | null;
         titleEn: string | null;
         maxItems: number;
-        sortOrder: number;
         isActive: boolean;
+        sortOrder: number;
     })[]>;
+    createSection(data: any): Promise<{
+        id: number;
+        guid: string;
+        createdAt: Date;
+        updatedAt: Date;
+        type: import(".prisma/client").$Enums.HomeSectionType;
+        titleAr: string | null;
+        titleEn: string | null;
+        maxItems: number;
+        isActive: boolean;
+        sortOrder: number;
+    }>;
+    updateSection(id: number, data: any): Promise<{
+        id: number;
+        guid: string;
+        createdAt: Date;
+        updatedAt: Date;
+        type: import(".prisma/client").$Enums.HomeSectionType;
+        titleAr: string | null;
+        titleEn: string | null;
+        maxItems: number;
+        isActive: boolean;
+        sortOrder: number;
+    }>;
+    deleteSection(id: number): Promise<{
+        id: number;
+        guid: string;
+        createdAt: Date;
+        updatedAt: Date;
+        type: import(".prisma/client").$Enums.HomeSectionType;
+        titleAr: string | null;
+        titleEn: string | null;
+        maxItems: number;
+        isActive: boolean;
+        sortOrder: number;
+    }>;
+    reorderSections(orderedIds: number[]): Promise<{
+        id: number;
+        guid: string;
+        createdAt: Date;
+        updatedAt: Date;
+        type: import(".prisma/client").$Enums.HomeSectionType;
+        titleAr: string | null;
+        titleEn: string | null;
+        maxItems: number;
+        isActive: boolean;
+        sortOrder: number;
+    }[]>;
 }

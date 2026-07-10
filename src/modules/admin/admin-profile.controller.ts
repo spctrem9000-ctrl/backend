@@ -23,13 +23,23 @@ export class AdminProfileController {
 
   @Put()
   @ApiOperation({ summary: 'Update admin profile' })
-  updateProfile(@CurrentUser() user: { id: string }, @Body() dto: UpdateProfileDto) {
+  updateProfile(
+    @CurrentUser() user: { id: string },
+    @Body() dto: UpdateProfileDto,
+  ) {
     return this.profileService.updateProfile(user.id, dto.name, dto.email);
   }
 
   @Put('password')
   @ApiOperation({ summary: 'Change admin password' })
-  changePassword(@CurrentUser() user: { id: string }, @Body() dto: UpdatePasswordDto) {
-    return this.profileService.updatePassword(user.id, dto.oldPassword, dto.newPassword);
+  changePassword(
+    @CurrentUser() user: { id: string },
+    @Body() dto: UpdatePasswordDto,
+  ) {
+    return this.profileService.updatePassword(
+      user.id,
+      dto.oldPassword,
+      dto.newPassword,
+    );
   }
 }

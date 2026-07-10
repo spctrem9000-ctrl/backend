@@ -479,6 +479,8 @@ model LoyaltyTransaction {
   adminId    String?                @db.Uuid // Admin UUID if manual adjustment
   
   createdAt  DateTime               @default(now())
+
+  @@index([customerId])
 }
 
 // ------------------------------------------
@@ -509,6 +511,8 @@ model Notification {
   readAt     DateTime?
   
   createdAt  DateTime         @default(now())
+
+  @@index([customerId])
 }
 
 // ------------------------------------------
@@ -698,6 +702,9 @@ model Order {
   createdAt            DateTime      @default(now())
   updatedAt            DateTime      @updatedAt
   isDeleted            Boolean       @default(false)
+  
+  @@index([customerId])
+  @@index([status])
 }
 
 model OrderItem {

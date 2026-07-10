@@ -10,6 +10,7 @@ export declare class CustomerCategoryController {
         createdBy: string | null;
         updatedBy: string | null;
         isDeleted: boolean;
+        isActive: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
@@ -18,7 +19,6 @@ export declare class CustomerCategoryController {
         categoryCode: string;
         image: string | null;
         displayOrder: number;
-        isActive: boolean;
     }[]>;
     getFeaturedCategories(): Promise<{
         id: number;
@@ -28,6 +28,7 @@ export declare class CustomerCategoryController {
         createdBy: string | null;
         updatedBy: string | null;
         isDeleted: boolean;
+        isActive: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
@@ -36,6 +37,5 @@ export declare class CustomerCategoryController {
         categoryCode: string;
         image: string | null;
         displayOrder: number;
-        isActive: boolean;
     }[]>;
 }

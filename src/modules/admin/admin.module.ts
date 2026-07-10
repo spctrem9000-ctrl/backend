@@ -8,11 +8,30 @@ import { AdminDashboardController } from './admin-dashboard.controller';
 import { AdminDashboardService } from './admin-dashboard.service';
 import { AdminProfileController } from './admin-profile.controller';
 import { AdminProfileService } from './admin-profile.service';
+import { AdminSettingsController } from './admin-settings.controller';
+import { AdminSettingsService } from './admin-settings.service';
 
 @Module({
   imports: [PrismaModule, JwtModule.register({})],
-  controllers: [AdminAuthController, AdminDashboardController, AdminProfileController],
-  providers: [AdminAuthService, AdminRepository, AdminDashboardService, AdminProfileService],
-  exports: [AdminAuthService, AdminRepository, AdminDashboardService, AdminProfileService],
+  controllers: [
+    AdminAuthController,
+    AdminDashboardController,
+    AdminProfileController,
+    AdminSettingsController,
+  ],
+  providers: [
+    AdminAuthService,
+    AdminRepository,
+    AdminDashboardService,
+    AdminProfileService,
+    AdminSettingsService,
+  ],
+  exports: [
+    AdminAuthService,
+    AdminRepository,
+    AdminDashboardService,
+    AdminProfileService,
+    AdminSettingsService,
+  ],
 })
 export class AdminModule {}

@@ -24,11 +24,53 @@ let AdminLoyaltyController = class AdminLoyaltyController {
     constructor(loyaltyService) {
         this.loyaltyService = loyaltyService;
     }
+    getConfig() {
+        return this.loyaltyService.getConfig();
+    }
+    updateConfig(data) {
+        return this.loyaltyService.updateConfig(data);
+    }
+    getAllTransactions() {
+        return this.loyaltyService.getAllTransactions();
+    }
+    manualAdjustment(data) {
+        return this.loyaltyService.manualAdjustment(data);
+    }
     getHistory(id) {
         return this.loyaltyService.getHistory(id);
     }
 };
 exports.AdminLoyaltyController = AdminLoyaltyController;
+__decorate([
+    (0, common_1.Get)('config'),
+    (0, swagger_1.ApiOperation)({ summary: 'Get loyalty config' }),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], AdminLoyaltyController.prototype, "getConfig", null);
+__decorate([
+    (0, common_1.Put)('config'),
+    (0, swagger_1.ApiOperation)({ summary: 'Update loyalty config' }),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], AdminLoyaltyController.prototype, "updateConfig", null);
+__decorate([
+    (0, common_1.Get)('transactions'),
+    (0, swagger_1.ApiOperation)({ summary: 'Get all transactions' }),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], AdminLoyaltyController.prototype, "getAllTransactions", null);
+__decorate([
+    (0, common_1.Post)('adjustment'),
+    (0, swagger_1.ApiOperation)({ summary: 'Manual point adjustment' }),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], AdminLoyaltyController.prototype, "manualAdjustment", null);
 __decorate([
     (0, common_1.Get)(':customerId/history'),
     (0, swagger_1.ApiOperation)({ summary: 'Get customer transaction history' }),

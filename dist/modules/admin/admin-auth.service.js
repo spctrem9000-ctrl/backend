@@ -84,7 +84,7 @@ let AdminAuthService = AdminAuthService_1 = class AdminAuthService {
             throw new common_1.UnauthorizedException('Invalid admin credentials');
         }
         const tokens = await this.generateTokens(admin.guid, admin.email, 'ADMIN');
-        const { password, ...profile } = admin;
+        const { password: _password, ...profile } = admin;
         return { profile, tokens };
     }
     async generateTokens(userId, email, role) {

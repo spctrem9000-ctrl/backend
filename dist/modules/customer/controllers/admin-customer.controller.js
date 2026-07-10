@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const tag_service_1 = require("../services/tag.service");
 const note_service_1 = require("../services/note.service");
 const customer_service_1 = require("../customer.service");
+const client_1 = require("@prisma/client");
 const create_tag_dto_1 = require("../dto/create-tag.dto");
 const create_note_dto_1 = require("../dto/create-note.dto");
 const jwt_auth_guard_1 = require("../../../common/guards/jwt-auth.guard");
@@ -35,6 +36,15 @@ let AdminCustomerController = class AdminCustomerController {
     }
     getAllCustomers() {
         return this.customerService.getAllCustomers();
+    }
+    getCustomerDetails(id) {
+        return this.customerService.getAdminCustomerDetails(id);
+    }
+    getCustomerTimeline(id) {
+        return this.customerService.getCustomerTimeline(id);
+    }
+    updateStatus(id, status) {
+        return this.customerService.updateCustomerStatus(id, status);
     }
     createTag(dto) {
         return this.tagService.createTag(dto);
@@ -66,6 +76,31 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], AdminCustomerController.prototype, "getAllCustomers", null);
+__decorate([
+    (0, common_1.Get)(':id'),
+    (0, swagger_1.ApiOperation)({ summary: 'Get full CRM details for a customer' }),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", void 0)
+], AdminCustomerController.prototype, "getCustomerDetails", null);
+__decorate([
+    (0, common_1.Get)(':id/timeline'),
+    (0, swagger_1.ApiOperation)({ summary: 'Get customer activity timeline' }),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", void 0)
+], AdminCustomerController.prototype, "getCustomerTimeline", null);
+__decorate([
+    (0, common_1.Patch)(':id/status'),
+    (0, swagger_1.ApiOperation)({ summary: 'Update customer status (Verify, Block, etc)' }),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Body)('status')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, String]),
+    __metadata("design:returntype", void 0)
+], AdminCustomerController.prototype, "updateStatus", null);
 __decorate([
     (0, common_1.Post)('tags'),
     (0, swagger_1.ApiOperation)({ summary: 'Create a new customer tag' }),

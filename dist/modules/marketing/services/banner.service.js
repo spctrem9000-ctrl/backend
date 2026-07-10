@@ -17,11 +17,50 @@ let BannerService = class BannerService {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    async getActiveBanners() {
+    async getAdminBanners() {
         return this.prisma.banner.findMany({
-            where: { isActive: true },
             orderBy: { sortOrder: 'asc' },
         });
+    }
+    async getActiveBanners() {
+        const now = new Date();
+        return this.prisma.banner.findMany({
+            where: {
+                isActive: true,
+                OR: [
+                    { startDate: null, endDate: null },
+                    { startDate: { lte: now }, endDate: { gte: now } },
+                ],
+            },
+            orderBy: { sortOrder: 'asc' },
+        });
+    }
+    async createBanner(data) {
+        const count = await this.prisma.banner.count();
+        return this.prisma.banner.create({
+            data: {
+                ...data,
+                sortOrder: count,
+            },
+        });
+    }
+    async updateBanner(id, data) {
+        return this.prisma.banner.update({
+            where: { id },
+            data,
+        });
+    }
+    async deleteBanner(id) {
+        return this.prisma.banner.delete({
+            where: { id },
+        });
+    }
+    async reorderBanners(orderedIds) {
+        const updates = orderedIds.map((id, index) => this.prisma.banner.update({
+            where: { id },
+            data: { sortOrder: index },
+        }));
+        return this.prisma.$transaction(updates);
     }
 };
 exports.BannerService = BannerService;

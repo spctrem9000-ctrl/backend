@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   Post,
+  Patch,
   Delete,
   Body,
   Param,
@@ -11,6 +12,7 @@ import {
 import { TagService } from '../services/tag.service';
 import { NoteService } from '../services/note.service';
 import { CustomerService } from '../customer.service';
+import { CustomerStatus } from '@prisma/client';
 import { CreateCustomerTagDto } from '../dto/create-tag.dto';
 import { CreateCustomerNoteDto } from '../dto/create-note.dto';
 import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
@@ -35,6 +37,27 @@ export class AdminCustomerController {
   @ApiOperation({ summary: 'Get all customers' })
   getAllCustomers() {
     return this.customerService.getAllCustomers();
+  }
+
+  @Get(':id')
+  @ApiOperation({ summary: 'Get full CRM details for a customer' })
+  getCustomerDetails(@Param('id', ParseIntPipe) id: number) {
+    return this.customerService.getAdminCustomerDetails(id);
+  }
+
+  @Get(':id/timeline')
+  @ApiOperation({ summary: 'Get customer activity timeline' })
+  getCustomerTimeline(@Param('id', ParseIntPipe) id: number) {
+    return this.customerService.getCustomerTimeline(id);
+  }
+
+  @Patch(':id/status')
+  @ApiOperation({ summary: 'Update customer status (Verify, Block, etc)' })
+  updateStatus(
+    @Param('id', ParseIntPipe) id: number,
+    @Body('status') status: CustomerStatus,
+  ) {
+    return this.customerService.updateCustomerStatus(id, status);
   }
 
   // TAGS

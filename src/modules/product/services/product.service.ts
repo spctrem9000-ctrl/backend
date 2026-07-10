@@ -38,7 +38,8 @@ export class ProductService {
       );
     }
 
-    const productCode = dto.productCode || `PRD-${randomBytes(4).toString('hex').toUpperCase()}`;
+    const productCode =
+      dto.productCode || `PRD-${randomBytes(4).toString('hex').toUpperCase()}`;
 
     const product = await this.productRepository.create({
       productCode,
@@ -65,7 +66,14 @@ export class ProductService {
               sortOrder: img.sortOrder || 0,
             })),
           }
-        : (dto.gallery ? { create: dto.gallery.map((url, i) => ({ imageUrl: url, sortOrder: i })) } : undefined),
+        : dto.gallery
+          ? {
+              create: dto.gallery.map((url, i) => ({
+                imageUrl: url,
+                sortOrder: i,
+              })),
+            }
+          : undefined,
       insight: {
         create: { views: 0 },
       },

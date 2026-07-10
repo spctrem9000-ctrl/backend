@@ -53,6 +53,52 @@ let LoyaltyService = class LoyaltyService {
             }),
         ]);
     }
+    async getConfig() {
+        const setting = await this.prisma.setting.findUnique({
+            where: { key: 'LOYALTY_CONFIG' },
+        });
+        if (!setting) {
+            return {
+                enabled: false,
+                pointsPerCurrency: 1,
+                minRedeem: 100,
+                maxRedeem: 1000,
+                pointValue: 0.01,
+            };
+        }
+        return setting.value;
+    }
+    async updateConfig(config) {
+        return this.prisma.setting.upsert({
+            where: { key: 'LOYALTY_CONFIG' },
+            update: { value: config },
+            create: { key: 'LOYALTY_CONFIG', value: config },
+        });
+    }
+    async getAllTransactions() {
+        return this.prisma.loyaltyTransaction.findMany({
+            orderBy: { createdAt: 'desc' },
+            include: { customer: { select: { name: true, phone: true } } },
+        });
+    }
+    async manualAdjustment(data) {
+        await this.prisma.$transaction([
+            this.prisma.loyaltyTransaction.create({
+                data: {
+                    customerId: data.customerId,
+                    points: data.points,
+                    type: 'ADJUSTMENT',
+                    reason: data.reason,
+                    adminId: data.adminId,
+                },
+            }),
+            this.prisma.customer.update({
+                where: { id: data.customerId },
+                data: { loyaltyPoints: { increment: data.points } },
+            }),
+        ]);
+        return { success: true };
+    }
 };
 exports.LoyaltyService = LoyaltyService;
 exports.LoyaltyService = LoyaltyService = __decorate([
