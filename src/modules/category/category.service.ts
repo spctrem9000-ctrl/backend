@@ -82,7 +82,7 @@ export class CategoryService {
   }
 
   async searchCategories(query: string) {
-    if (!query) return [];
+    query = query || '';
     return this.categoryRepository.search(query);
   }
 
