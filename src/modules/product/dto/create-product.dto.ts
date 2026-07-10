@@ -23,6 +23,11 @@ export class ProductImageDto {
 }
 
 export class CreateProductDto {
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  productCode?: string;
+
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
@@ -62,6 +67,12 @@ export class CreateProductDto {
   @ValidateNested({ each: true })
   @Type(() => ProductImageDto)
   galleryImages?: ProductImageDto[];
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  gallery?: string[];
 
   @ApiProperty()
   @IsNotEmpty()

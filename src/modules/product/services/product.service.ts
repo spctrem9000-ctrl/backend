@@ -32,7 +32,13 @@ export class ProductService {
       );
     }
 
-    const productCode = `PRD-${randomBytes(4).toString('hex').toUpperCase()}`;
+    if (dto.gallery && dto.gallery.length > 5) {
+      throw new BadRequestException(
+        'A product can have a maximum of 5 gallery images',
+      );
+    }
+
+    const productCode = dto.productCode || `PRD-${randomBytes(4).toString('hex').toUpperCase()}`;
 
     const product = await this.productRepository.create({
       productCode,
@@ -59,7 +65,7 @@ export class ProductService {
               sortOrder: img.sortOrder || 0,
             })),
           }
-        : undefined,
+        : (dto.gallery ? { create: dto.gallery.map((url, i) => ({ imageUrl: url, sortOrder: i })) } : undefined),
       insight: {
         create: { views: 0 },
       },
@@ -103,6 +109,16 @@ export class ProductService {
         create: dto.galleryImages.map((img) => ({
           imageUrl: img.imageUrl,
           sortOrder: img.sortOrder || 0,
+        })),
+      };
+    } else if (dto.gallery) {
+      if (dto.gallery.length > 5)
+        throw new BadRequestException('Max 5 gallery images');
+      imagesUpdate = {
+        deleteMany: {}, // Clear old
+        create: dto.gallery.map((url, i) => ({
+          imageUrl: url,
+          sortOrder: i,
         })),
       };
     }
