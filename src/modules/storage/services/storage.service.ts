@@ -23,6 +23,24 @@ export class StorageService {
     file: Express.Multer.File,
     folder: string,
   ): Promise<StorageUrls> {
+    const isAudio = file.mimetype.startsWith('audio/');
+
+    if (isAudio) {
+      // Upload audio directly without any image processing
+      const ext = file.originalname.split('.').pop() || 'mp3';
+      const { v4: uuidv4 } = await import('uuid');
+      const filename = `${uuidv4()}.${ext}`;
+      const url = await this.storageProvider.uploadFile(
+        file.buffer,
+        filename,
+        folder,
+        file.mimetype,
+      );
+      this.logger.log(`Audio file uploaded to folder ${folder}: ${filename}`);
+      // Return same URL for all three to keep interface consistent
+      return { originalUrl: url, mediumUrl: url, thumbnailUrl: url };
+    }
+
     const { original, medium, thumbnail, filename } =
       await this.imageProcessor.processImage(file.buffer);
     const mimeType = 'image/webp';
