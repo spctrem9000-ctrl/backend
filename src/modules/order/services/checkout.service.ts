@@ -20,12 +20,9 @@ export class CheckoutService {
       where: { id: customerId },
     });
     if (!customer) throw new BadRequestException('Customer not found');
-    if (
-      customer.status === CustomerStatus.GUEST ||
-      customer.status === CustomerStatus.UNVERIFIED
-    ) {
+    if (customer.status === CustomerStatus.BLOCKED) {
       throw new BadRequestException(
-        'Guest/Unverified customers cannot place orders. Please verify account.',
+        'Your account has been blocked. Please contact support.',
       );
     }
 
