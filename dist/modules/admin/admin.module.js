@@ -13,15 +13,19 @@ const prisma_module_1 = require("../../core/prisma/prisma.module");
 const admin_auth_controller_1 = require("./admin-auth.controller");
 const admin_auth_service_1 = require("./admin-auth.service");
 const admin_repository_1 = require("./admin.repository");
+const admin_dashboard_controller_1 = require("./admin-dashboard.controller");
+const admin_dashboard_service_1 = require("./admin-dashboard.service");
+const admin_profile_controller_1 = require("./admin-profile.controller");
+const admin_profile_service_1 = require("./admin-profile.service");
 let AdminModule = class AdminModule {
 };
 exports.AdminModule = AdminModule;
 exports.AdminModule = AdminModule = __decorate([
     (0, common_1.Module)({
         imports: [prisma_module_1.PrismaModule, jwt_1.JwtModule.register({})],
-        controllers: [admin_auth_controller_1.AdminAuthController],
-        providers: [admin_auth_service_1.AdminAuthService, admin_repository_1.AdminRepository],
-        exports: [admin_auth_service_1.AdminAuthService, admin_repository_1.AdminRepository],
+        controllers: [admin_auth_controller_1.AdminAuthController, admin_dashboard_controller_1.AdminDashboardController, admin_profile_controller_1.AdminProfileController],
+        providers: [admin_auth_service_1.AdminAuthService, admin_repository_1.AdminRepository, admin_dashboard_service_1.AdminDashboardService, admin_profile_service_1.AdminProfileService],
+        exports: [admin_auth_service_1.AdminAuthService, admin_repository_1.AdminRepository, admin_dashboard_service_1.AdminDashboardService, admin_profile_service_1.AdminProfileService],
     })
 ], AdminModule);
 //# sourceMappingURL=admin.module.js.map

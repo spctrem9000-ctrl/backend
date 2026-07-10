@@ -83,7 +83,7 @@ let AdminAuthService = AdminAuthService_1 = class AdminAuthService {
         if (!isMatch) {
             throw new common_1.UnauthorizedException('Invalid admin credentials');
         }
-        const tokens = await this.generateTokens(admin.id, admin.email, 'ADMIN');
+        const tokens = await this.generateTokens(admin.guid, admin.email, 'ADMIN');
         const { password, ...profile } = admin;
         return { profile, tokens };
     }
@@ -92,7 +92,7 @@ let AdminAuthService = AdminAuthService_1 = class AdminAuthService {
         const [accessToken, refreshToken] = await Promise.all([
             this.jwtService.signAsync(payload, {
                 secret: this.configService.get('JWT_SECRET'),
-                expiresIn: '15m',
+                expiresIn: '1d',
             }),
             this.jwtService.signAsync(payload, {
                 secret: this.configService.get('JWT_REFRESH_SECRET'),

@@ -30,6 +30,7 @@ __decorate([
     __metadata("design:type", Number)
 ], ProductImageDto.prototype, "sortOrder", void 0);
 class CreateProductDto {
+    productCode;
     nameAr;
     nameEn;
     descriptionAr;
@@ -37,6 +38,7 @@ class CreateProductDto {
     categoryId;
     mainImage;
     galleryImages;
+    gallery;
     basePrice;
     discountPrice;
     preparationTime;
@@ -49,6 +51,12 @@ class CreateProductDto {
     isOffer;
 }
 exports.CreateProductDto = CreateProductDto;
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateProductDto.prototype, "productCode", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsNotEmpty)(),
@@ -96,6 +104,13 @@ __decorate([
     (0, class_transformer_1.Type)(() => ProductImageDto),
     __metadata("design:type", Array)
 ], CreateProductDto.prototype, "galleryImages", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsArray)(),
+    (0, class_validator_1.IsString)({ each: true }),
+    __metadata("design:type", Array)
+], CreateProductDto.prototype, "gallery", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)(),
     (0, class_validator_1.IsNotEmpty)(),

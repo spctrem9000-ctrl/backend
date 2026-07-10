@@ -74,8 +74,7 @@ let CategoryService = class CategoryService {
         return category;
     }
     async searchCategories(query) {
-        if (!query)
-            return [];
+        query = query || '';
         return this.categoryRepository.search(query);
     }
     async toggleActive(id, isActive, adminId) {

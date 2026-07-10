@@ -3,6 +3,7 @@ export declare class ProductImageDto {
     sortOrder?: number;
 }
 export declare class CreateProductDto {
+    productCode?: string;
     nameAr: string;
     nameEn: string;
     descriptionAr?: string;
@@ -10,6 +11,7 @@ export declare class CreateProductDto {
     categoryId: number;
     mainImage?: string;
     galleryImages?: ProductImageDto[];
+    gallery?: string[];
     basePrice: number;
     discountPrice?: number;
     preparationTime?: number;
