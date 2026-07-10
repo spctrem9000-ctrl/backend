@@ -108,6 +108,12 @@ export class OrderService {
       include: {
         customer: { select: { name: true, phone: true } },
         address: true,
+        items: {
+          include: {
+            product: { select: { nameAr: true, nameEn: true } },
+            extras: { include: { extra: { select: { nameAr: true, nameEn: true, price: true } } } },
+          },
+        },
       },
     });
   }

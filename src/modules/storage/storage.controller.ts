@@ -54,9 +54,9 @@ export class StorageController {
     @UploadedFile(
       new ParseFilePipe({
         validators: [
-          new MaxFileSizeValidator({ maxSize: 5 * 1024 * 1024 }), // 5MB
+          new MaxFileSizeValidator({ maxSize: 10 * 1024 * 1024 }), // 10MB
           new FileTypeValidator({
-            fileType: '.(png|jpeg|jpg|webp|mp3|wav|ogg)',
+            fileType: /(image\/(png|jpeg|jpg|webp))|(audio\/(mpeg|wav|ogg|mp3))/,
           }),
         ],
       }),
@@ -93,9 +93,9 @@ export class StorageController {
     @UploadedFiles(
       new ParseFilePipe({
         validators: [
-          new MaxFileSizeValidator({ maxSize: 5 * 1024 * 1024 }), // 5MB per file
+          new MaxFileSizeValidator({ maxSize: 10 * 1024 * 1024 }), // 10MB per file
           new FileTypeValidator({
-            fileType: '.(png|jpeg|jpg|webp|mp3|wav|ogg)',
+            fileType: /(image\/(png|jpeg|jpg|webp))|(audio\/(mpeg|wav|ogg|mp3))/,
           }),
         ],
       }),
