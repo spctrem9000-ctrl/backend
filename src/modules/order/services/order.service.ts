@@ -106,7 +106,7 @@ export class OrderService {
       where,
       orderBy: { createdAt: 'desc' },
       include: {
-        customer: { select: { name: true, phone: true } },
+        customer: true,
         address: true,
         items: {
           include: {
