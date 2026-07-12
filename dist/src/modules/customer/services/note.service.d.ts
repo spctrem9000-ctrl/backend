@@ -8,8 +8,8 @@ export declare class NoteService {
         guid: string;
         createdAt: Date;
         updatedAt: Date;
-        createdBy: string | null;
         isDeleted: boolean;
+        createdBy: string | null;
         customerId: number;
         note: string;
     }>;
@@ -18,8 +18,8 @@ export declare class NoteService {
         guid: string;
         createdAt: Date;
         updatedAt: Date;
-        createdBy: string | null;
         isDeleted: boolean;
+        createdBy: string | null;
         customerId: number;
         note: string;
     }[]>;
@@ -28,8 +28,8 @@ export declare class NoteService {
         guid: string;
         createdAt: Date;
         updatedAt: Date;
-        createdBy: string | null;
         isDeleted: boolean;
+        createdBy: string | null;
         customerId: number;
         note: string;
     }>;

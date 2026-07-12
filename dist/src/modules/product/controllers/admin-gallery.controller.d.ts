@@ -7,9 +7,9 @@ export declare class AdminGalleryController {
     constructor(prisma: PrismaService, storageService: StorageService);
     uploadImages(productId: number, files: Express.Multer.File[]): Promise<{
         id: number;
-        sortOrder: number;
         createdAt: Date;
         productId: number;
+        sortOrder: number;
         imageUrl: string;
     }[]>;
     deleteImage(productId: number, imageId: number): Promise<{

@@ -18,8 +18,8 @@ export declare class AdminCouponController {
                 nameEn: string;
             };
         } & {
-            categoryId: number;
             couponId: number;
+            categoryId: number;
         })[];
         targetCustomers: ({
             customer: {
@@ -36,6 +36,7 @@ export declare class AdminCouponController {
         guid: string;
         createdAt: Date;
         updatedAt: Date;
+        isActive: boolean;
         code: string;
         couponType: import(".prisma/client").$Enums.CouponType;
         discountPercent: import("@prisma/client/runtime/library").Decimal | null;
@@ -47,7 +48,6 @@ export declare class AdminCouponController {
         usageLimit: number | null;
         usageCount: number;
         usagePerCustomer: number | null;
-        isActive: boolean;
         targetType: import(".prisma/client").$Enums.CouponTargetType;
     })[]>;
     createCoupon(data: any): Promise<{
@@ -55,6 +55,7 @@ export declare class AdminCouponController {
         guid: string;
         createdAt: Date;
         updatedAt: Date;
+        isActive: boolean;
         code: string;
         couponType: import(".prisma/client").$Enums.CouponType;
         discountPercent: import("@prisma/client/runtime/library").Decimal | null;
@@ -66,7 +67,6 @@ export declare class AdminCouponController {
         usageLimit: number | null;
         usageCount: number;
         usagePerCustomer: number | null;
-        isActive: boolean;
         targetType: import(".prisma/client").$Enums.CouponTargetType;
     }>;
     updateCoupon(id: number, data: any): Promise<{
@@ -74,6 +74,7 @@ export declare class AdminCouponController {
         guid: string;
         createdAt: Date;
         updatedAt: Date;
+        isActive: boolean;
         code: string;
         couponType: import(".prisma/client").$Enums.CouponType;
         discountPercent: import("@prisma/client/runtime/library").Decimal | null;
@@ -85,7 +86,6 @@ export declare class AdminCouponController {
         usageLimit: number | null;
         usageCount: number;
         usagePerCustomer: number | null;
-        isActive: boolean;
         targetType: import(".prisma/client").$Enums.CouponTargetType;
     }>;
     deleteCoupon(id: number): Promise<{
@@ -93,6 +93,7 @@ export declare class AdminCouponController {
         guid: string;
         createdAt: Date;
         updatedAt: Date;
+        isActive: boolean;
         code: string;
         couponType: import(".prisma/client").$Enums.CouponType;
         discountPercent: import("@prisma/client/runtime/library").Decimal | null;
@@ -104,7 +105,6 @@ export declare class AdminCouponController {
         usageLimit: number | null;
         usageCount: number;
         usagePerCustomer: number | null;
-        isActive: boolean;
         targetType: import(".prisma/client").$Enums.CouponTargetType;
     }>;
 }

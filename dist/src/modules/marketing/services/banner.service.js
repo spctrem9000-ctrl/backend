@@ -17,14 +17,22 @@ let BannerService = class BannerService {
     constructor(prisma) {
         this.prisma = prisma;
     }
+    mapBanner(banner) {
+        const { targetId, ...rest } = banner;
+        return {
+            ...rest,
+            targetUrl: targetId,
+        };
+    }
     async getAdminBanners() {
-        return this.prisma.banner.findMany({
+        const banners = await this.prisma.banner.findMany({
             orderBy: { sortOrder: 'asc' },
         });
+        return banners.map((b) => this.mapBanner(b));
     }
     async getActiveBanners() {
         const now = new Date();
-        return this.prisma.banner.findMany({
+        const banners = await this.prisma.banner.findMany({
             where: {
                 isActive: true,
                 OR: [
@@ -34,26 +42,38 @@ let BannerService = class BannerService {
             },
             orderBy: { sortOrder: 'asc' },
         });
+        return banners.map((b) => this.mapBanner(b));
     }
     async createBanner(data) {
         const count = await this.prisma.banner.count();
-        return this.prisma.banner.create({
+        if (data.targetUrl !== undefined) {
+            data.targetId = data.targetUrl;
+            delete data.targetUrl;
+        }
+        const banner = await this.prisma.banner.create({
             data: {
                 ...data,
                 sortOrder: count,
             },
         });
+        return this.mapBanner(banner);
     }
     async updateBanner(id, data) {
-        return this.prisma.banner.update({
+        if (data.targetUrl !== undefined) {
+            data.targetId = data.targetUrl;
+            delete data.targetUrl;
+        }
+        const banner = await this.prisma.banner.update({
             where: { id },
             data,
         });
+        return this.mapBanner(banner);
     }
     async deleteBanner(id) {
-        return this.prisma.banner.delete({
+        const banner = await this.prisma.banner.delete({
             where: { id },
         });
+        return this.mapBanner(banner);
     }
     async reorderBanners(orderedIds) {
         const updates = orderedIds.map((id, index) => this.prisma.banner.update({

@@ -10,11 +10,17 @@ export declare class AdminProductController {
     }): Promise<{
         id: number;
         guid: string;
-        productCode: string;
+        createdAt: Date;
+        updatedAt: Date;
+        isDeleted: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
         descriptionEn: string | null;
+        isFeatured: boolean;
+        createdBy: string | null;
+        updatedBy: string | null;
+        productCode: string;
         categoryId: number;
         mainImage: string | null;
         basePrice: import("@prisma/client/runtime/library").Decimal;
@@ -23,15 +29,9 @@ export declare class AdminProductController {
         calories: number | null;
         sortOrder: number;
         isAvailable: boolean;
-        isFeatured: boolean;
         isBestSeller: boolean;
         isNew: boolean;
         isOffer: boolean;
-        createdAt: Date;
-        updatedAt: Date;
-        createdBy: string | null;
-        updatedBy: string | null;
-        isDeleted: boolean;
     }>;
     findAll(filters: ProductFilterDto): Promise<({
         category: {
@@ -41,9 +41,9 @@ export declare class AdminProductController {
         };
         images: {
             id: number;
-            sortOrder: number;
             createdAt: Date;
             productId: number;
+            sortOrder: number;
             imageUrl: string;
         }[];
         insight: {
@@ -59,11 +59,17 @@ export declare class AdminProductController {
     } & {
         id: number;
         guid: string;
-        productCode: string;
+        createdAt: Date;
+        updatedAt: Date;
+        isDeleted: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
         descriptionEn: string | null;
+        isFeatured: boolean;
+        createdBy: string | null;
+        updatedBy: string | null;
+        productCode: string;
         categoryId: number;
         mainImage: string | null;
         basePrice: import("@prisma/client/runtime/library").Decimal;
@@ -72,40 +78,34 @@ export declare class AdminProductController {
         calories: number | null;
         sortOrder: number;
         isAvailable: boolean;
-        isFeatured: boolean;
         isBestSeller: boolean;
         isNew: boolean;
         isOffer: boolean;
-        createdAt: Date;
-        updatedAt: Date;
-        createdBy: string | null;
-        updatedBy: string | null;
-        isDeleted: boolean;
     })[]>;
     findOne(id: number): Promise<{
         category: {
             id: number;
             guid: string;
+            createdAt: Date;
+            updatedAt: Date;
+            isDeleted: boolean;
+            categoryCode: string;
             nameAr: string;
             nameEn: string;
             descriptionAr: string | null;
             descriptionEn: string | null;
-            isFeatured: boolean;
-            createdAt: Date;
-            updatedAt: Date;
-            createdBy: string | null;
-            updatedBy: string | null;
-            isDeleted: boolean;
-            isActive: boolean;
-            categoryCode: string;
             image: string | null;
             displayOrder: number;
+            isActive: boolean;
+            isFeatured: boolean;
+            createdBy: string | null;
+            updatedBy: string | null;
         };
         images: {
             id: number;
-            sortOrder: number;
             createdAt: Date;
             productId: number;
+            sortOrder: number;
             imageUrl: string;
         }[];
         priceHistory: {
@@ -132,14 +132,14 @@ export declare class AdminProductController {
                 extras: {
                     id: number;
                     guid: string;
-                    nameAr: string;
-                    nameEn: string;
-                    sortOrder: number;
-                    isAvailable: boolean;
                     createdAt: Date;
                     updatedAt: Date;
-                    createdBy: string | null;
                     isDeleted: boolean;
+                    nameAr: string;
+                    nameEn: string;
+                    createdBy: string | null;
+                    sortOrder: number;
+                    isAvailable: boolean;
                     imageUrl: string | null;
                     extraGroupId: number;
                     price: import("@prisma/client/runtime/library").Decimal;
@@ -147,14 +147,14 @@ export declare class AdminProductController {
             } & {
                 id: number;
                 guid: string;
-                nameAr: string;
-                nameEn: string;
-                sortOrder: number;
-                isAvailable: boolean;
                 createdAt: Date;
                 updatedAt: Date;
-                createdBy: string | null;
                 isDeleted: boolean;
+                nameAr: string;
+                nameEn: string;
+                createdBy: string | null;
+                sortOrder: number;
+                isAvailable: boolean;
                 selectionType: import(".prisma/client").$Enums.SelectionType;
                 isRequired: boolean;
                 minSelection: number;
@@ -168,11 +168,17 @@ export declare class AdminProductController {
     } & {
         id: number;
         guid: string;
-        productCode: string;
+        createdAt: Date;
+        updatedAt: Date;
+        isDeleted: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
         descriptionEn: string | null;
+        isFeatured: boolean;
+        createdBy: string | null;
+        updatedBy: string | null;
+        productCode: string;
         categoryId: number;
         mainImage: string | null;
         basePrice: import("@prisma/client/runtime/library").Decimal;
@@ -181,24 +187,18 @@ export declare class AdminProductController {
         calories: number | null;
         sortOrder: number;
         isAvailable: boolean;
-        isFeatured: boolean;
         isBestSeller: boolean;
         isNew: boolean;
         isOffer: boolean;
-        createdAt: Date;
-        updatedAt: Date;
-        createdBy: string | null;
-        updatedBy: string | null;
-        isDeleted: boolean;
     }>;
     update(id: number, dto: UpdateProductDto, user: {
         id: string;
     }): Promise<{
         images: {
             id: number;
-            sortOrder: number;
             createdAt: Date;
             productId: number;
+            sortOrder: number;
             imageUrl: string;
         }[];
         insight: {
@@ -214,11 +214,17 @@ export declare class AdminProductController {
     } & {
         id: number;
         guid: string;
-        productCode: string;
+        createdAt: Date;
+        updatedAt: Date;
+        isDeleted: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
         descriptionEn: string | null;
+        isFeatured: boolean;
+        createdBy: string | null;
+        updatedBy: string | null;
+        productCode: string;
         categoryId: number;
         mainImage: string | null;
         basePrice: import("@prisma/client/runtime/library").Decimal;
@@ -227,24 +233,18 @@ export declare class AdminProductController {
         calories: number | null;
         sortOrder: number;
         isAvailable: boolean;
-        isFeatured: boolean;
         isBestSeller: boolean;
         isNew: boolean;
         isOffer: boolean;
-        createdAt: Date;
-        updatedAt: Date;
-        createdBy: string | null;
-        updatedBy: string | null;
-        isDeleted: boolean;
     }>;
     remove(id: number, user: {
         id: string;
     }): Promise<{
         images: {
             id: number;
-            sortOrder: number;
             createdAt: Date;
             productId: number;
+            sortOrder: number;
             imageUrl: string;
         }[];
         insight: {
@@ -260,11 +260,17 @@ export declare class AdminProductController {
     } & {
         id: number;
         guid: string;
-        productCode: string;
+        createdAt: Date;
+        updatedAt: Date;
+        isDeleted: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
         descriptionEn: string | null;
+        isFeatured: boolean;
+        createdBy: string | null;
+        updatedBy: string | null;
+        productCode: string;
         categoryId: number;
         mainImage: string | null;
         basePrice: import("@prisma/client/runtime/library").Decimal;
@@ -273,24 +279,18 @@ export declare class AdminProductController {
         calories: number | null;
         sortOrder: number;
         isAvailable: boolean;
-        isFeatured: boolean;
         isBestSeller: boolean;
         isNew: boolean;
         isOffer: boolean;
-        createdAt: Date;
-        updatedAt: Date;
-        createdBy: string | null;
-        updatedBy: string | null;
-        isDeleted: boolean;
     }>;
     restore(id: number, user: {
         id: string;
     }): Promise<{
         images: {
             id: number;
-            sortOrder: number;
             createdAt: Date;
             productId: number;
+            sortOrder: number;
             imageUrl: string;
         }[];
         insight: {
@@ -306,11 +306,17 @@ export declare class AdminProductController {
     } & {
         id: number;
         guid: string;
-        productCode: string;
+        createdAt: Date;
+        updatedAt: Date;
+        isDeleted: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
         descriptionEn: string | null;
+        isFeatured: boolean;
+        createdBy: string | null;
+        updatedBy: string | null;
+        productCode: string;
         categoryId: number;
         mainImage: string | null;
         basePrice: import("@prisma/client/runtime/library").Decimal;
@@ -319,26 +325,26 @@ export declare class AdminProductController {
         calories: number | null;
         sortOrder: number;
         isAvailable: boolean;
-        isFeatured: boolean;
         isBestSeller: boolean;
         isNew: boolean;
         isOffer: boolean;
-        createdAt: Date;
-        updatedAt: Date;
-        createdBy: string | null;
-        updatedBy: string | null;
-        isDeleted: boolean;
     }>;
     duplicate(id: number, user: {
         id: string;
     }): Promise<{
         id: number;
         guid: string;
-        productCode: string;
+        createdAt: Date;
+        updatedAt: Date;
+        isDeleted: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
         descriptionEn: string | null;
+        isFeatured: boolean;
+        createdBy: string | null;
+        updatedBy: string | null;
+        productCode: string;
         categoryId: number;
         mainImage: string | null;
         basePrice: import("@prisma/client/runtime/library").Decimal;
@@ -347,24 +353,18 @@ export declare class AdminProductController {
         calories: number | null;
         sortOrder: number;
         isAvailable: boolean;
-        isFeatured: boolean;
         isBestSeller: boolean;
         isNew: boolean;
         isOffer: boolean;
-        createdAt: Date;
-        updatedAt: Date;
-        createdBy: string | null;
-        updatedBy: string | null;
-        isDeleted: boolean;
     }>;
     toggleStatus(id: number, isAvailable: boolean, user: {
         id: string;
     }): Promise<{
         images: {
             id: number;
-            sortOrder: number;
             createdAt: Date;
             productId: number;
+            sortOrder: number;
             imageUrl: string;
         }[];
         insight: {
@@ -380,11 +380,17 @@ export declare class AdminProductController {
     } & {
         id: number;
         guid: string;
-        productCode: string;
+        createdAt: Date;
+        updatedAt: Date;
+        isDeleted: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
         descriptionEn: string | null;
+        isFeatured: boolean;
+        createdBy: string | null;
+        updatedBy: string | null;
+        productCode: string;
         categoryId: number;
         mainImage: string | null;
         basePrice: import("@prisma/client/runtime/library").Decimal;
@@ -393,14 +399,8 @@ export declare class AdminProductController {
         calories: number | null;
         sortOrder: number;
         isAvailable: boolean;
-        isFeatured: boolean;
         isBestSeller: boolean;
         isNew: boolean;
         isOffer: boolean;
-        createdAt: Date;
-        updatedAt: Date;
-        createdBy: string | null;
-        updatedBy: string | null;
-        isDeleted: boolean;
     }>;
 }

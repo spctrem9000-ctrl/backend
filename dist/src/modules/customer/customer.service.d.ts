@@ -9,13 +9,13 @@ export declare class CustomerService {
     getProfile(customerId: number): Promise<{
         id: number;
         guid: string;
+        email: string | null;
+        name: string;
         createdAt: Date;
         updatedAt: Date;
         createdBy: string | null;
         updatedBy: string | null;
-        name: string;
         phone: string;
-        email: string | null;
         status: import(".prisma/client").$Enums.CustomerStatus;
         loyaltyPoints: number;
         profileImageUrl: string | null;
@@ -31,8 +31,8 @@ export declare class CustomerService {
             guid: string;
             createdAt: Date;
             updatedAt: Date;
-            createdBy: string | null;
             isDeleted: boolean;
+            createdBy: string | null;
             customerId: number;
             note: string;
         }[];
@@ -40,11 +40,11 @@ export declare class CustomerService {
             tag: {
                 id: number;
                 guid: string;
+                name: string;
                 createdAt: Date;
                 updatedAt: Date;
-                createdBy: string | null;
                 isDeleted: boolean;
-                name: string;
+                createdBy: string | null;
                 colorHex: string | null;
             };
         } & {
@@ -53,13 +53,13 @@ export declare class CustomerService {
         })[];
         id: number;
         guid: string;
+        email: string | null;
+        name: string;
         createdAt: Date;
         updatedAt: Date;
         createdBy: string | null;
         updatedBy: string | null;
-        name: string;
         phone: string;
-        email: string | null;
         status: import(".prisma/client").$Enums.CustomerStatus;
         loyaltyPoints: number;
         profileImageUrl: string | null;
@@ -72,13 +72,13 @@ export declare class CustomerService {
     updateProfile(customerId: number, updateDto: UpdateProfileDto): Promise<{
         id: number;
         guid: string;
+        email: string | null;
+        name: string;
         createdAt: Date;
         updatedAt: Date;
         createdBy: string | null;
         updatedBy: string | null;
-        name: string;
         phone: string;
-        email: string | null;
         status: import(".prisma/client").$Enums.CustomerStatus;
         loyaltyPoints: number;
         profileImageUrl: string | null;
@@ -121,8 +121,8 @@ export declare class CustomerService {
             guid: string;
             createdAt: Date;
             updatedAt: Date;
-            createdBy: string | null;
             isDeleted: boolean;
+            createdBy: string | null;
             customerId: number;
             note: string;
         }[];
@@ -130,11 +130,11 @@ export declare class CustomerService {
             tag: {
                 id: number;
                 guid: string;
+                name: string;
                 createdAt: Date;
                 updatedAt: Date;
-                createdBy: string | null;
                 isDeleted: boolean;
-                name: string;
+                createdBy: string | null;
                 colorHex: string | null;
             };
         } & {
@@ -145,11 +145,17 @@ export declare class CustomerService {
             product: {
                 id: number;
                 guid: string;
-                productCode: string;
+                createdAt: Date;
+                updatedAt: Date;
+                isDeleted: boolean;
                 nameAr: string;
                 nameEn: string;
                 descriptionAr: string | null;
                 descriptionEn: string | null;
+                isFeatured: boolean;
+                createdBy: string | null;
+                updatedBy: string | null;
+                productCode: string;
                 categoryId: number;
                 mainImage: string | null;
                 basePrice: import("@prisma/client/runtime/library").Decimal;
@@ -158,15 +164,9 @@ export declare class CustomerService {
                 calories: number | null;
                 sortOrder: number;
                 isAvailable: boolean;
-                isFeatured: boolean;
                 isBestSeller: boolean;
                 isNew: boolean;
                 isOffer: boolean;
-                createdAt: Date;
-                updatedAt: Date;
-                createdBy: string | null;
-                updatedBy: string | null;
-                isDeleted: boolean;
             };
         } & {
             createdAt: Date;
@@ -213,6 +213,7 @@ export declare class CustomerService {
                 guid: string;
                 createdAt: Date;
                 updatedAt: Date;
+                isActive: boolean;
                 code: string;
                 couponType: import(".prisma/client").$Enums.CouponType;
                 discountPercent: import("@prisma/client/runtime/library").Decimal | null;
@@ -224,7 +225,6 @@ export declare class CustomerService {
                 usageLimit: number | null;
                 usageCount: number;
                 usagePerCustomer: number | null;
-                isActive: boolean;
                 targetType: import(".prisma/client").$Enums.CouponTargetType;
             };
         } & {
@@ -236,13 +236,13 @@ export declare class CustomerService {
         })[];
         id: number;
         guid: string;
+        email: string | null;
+        name: string;
         createdAt: Date;
         updatedAt: Date;
         createdBy: string | null;
         updatedBy: string | null;
-        name: string;
         phone: string;
-        email: string | null;
         status: import(".prisma/client").$Enums.CustomerStatus;
         loyaltyPoints: number;
         profileImageUrl: string | null;

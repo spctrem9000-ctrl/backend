@@ -8,6 +8,11 @@ export class UpdateProfileDto {
   @MinLength(2)
   name?: string;
 
+  @ApiPropertyOptional({ example: 'https://example.com/avatar.jpg' })
+  @IsOptional()
+  @IsString()
+  profileImageUrl?: string;
+
   @ApiPropertyOptional({ example: 'john@example.com' })
   @IsOptional()
   @IsEmail()

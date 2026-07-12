@@ -15,8 +15,8 @@ export declare class AdminCustomerController {
             guid: string;
             createdAt: Date;
             updatedAt: Date;
-            createdBy: string | null;
             isDeleted: boolean;
+            createdBy: string | null;
             customerId: number;
             note: string;
         }[];
@@ -24,11 +24,11 @@ export declare class AdminCustomerController {
             tag: {
                 id: number;
                 guid: string;
+                name: string;
                 createdAt: Date;
                 updatedAt: Date;
-                createdBy: string | null;
                 isDeleted: boolean;
-                name: string;
+                createdBy: string | null;
                 colorHex: string | null;
             };
         } & {
@@ -37,13 +37,13 @@ export declare class AdminCustomerController {
         })[];
         id: number;
         guid: string;
+        email: string | null;
+        name: string;
         createdAt: Date;
         updatedAt: Date;
         createdBy: string | null;
         updatedBy: string | null;
-        name: string;
         phone: string;
-        email: string | null;
         status: import(".prisma/client").$Enums.CustomerStatus;
         loyaltyPoints: number;
         profileImageUrl: string | null;
@@ -83,8 +83,8 @@ export declare class AdminCustomerController {
             guid: string;
             createdAt: Date;
             updatedAt: Date;
-            createdBy: string | null;
             isDeleted: boolean;
+            createdBy: string | null;
             customerId: number;
             note: string;
         }[];
@@ -92,11 +92,11 @@ export declare class AdminCustomerController {
             tag: {
                 id: number;
                 guid: string;
+                name: string;
                 createdAt: Date;
                 updatedAt: Date;
-                createdBy: string | null;
                 isDeleted: boolean;
-                name: string;
+                createdBy: string | null;
                 colorHex: string | null;
             };
         } & {
@@ -107,11 +107,17 @@ export declare class AdminCustomerController {
             product: {
                 id: number;
                 guid: string;
-                productCode: string;
+                createdAt: Date;
+                updatedAt: Date;
+                isDeleted: boolean;
                 nameAr: string;
                 nameEn: string;
                 descriptionAr: string | null;
                 descriptionEn: string | null;
+                isFeatured: boolean;
+                createdBy: string | null;
+                updatedBy: string | null;
+                productCode: string;
                 categoryId: number;
                 mainImage: string | null;
                 basePrice: import("@prisma/client/runtime/library").Decimal;
@@ -120,15 +126,9 @@ export declare class AdminCustomerController {
                 calories: number | null;
                 sortOrder: number;
                 isAvailable: boolean;
-                isFeatured: boolean;
                 isBestSeller: boolean;
                 isNew: boolean;
                 isOffer: boolean;
-                createdAt: Date;
-                updatedAt: Date;
-                createdBy: string | null;
-                updatedBy: string | null;
-                isDeleted: boolean;
             };
         } & {
             createdAt: Date;
@@ -175,6 +175,7 @@ export declare class AdminCustomerController {
                 guid: string;
                 createdAt: Date;
                 updatedAt: Date;
+                isActive: boolean;
                 code: string;
                 couponType: import(".prisma/client").$Enums.CouponType;
                 discountPercent: import("@prisma/client/runtime/library").Decimal | null;
@@ -186,7 +187,6 @@ export declare class AdminCustomerController {
                 usageLimit: number | null;
                 usageCount: number;
                 usagePerCustomer: number | null;
-                isActive: boolean;
                 targetType: import(".prisma/client").$Enums.CouponTargetType;
             };
         } & {
@@ -198,13 +198,13 @@ export declare class AdminCustomerController {
         })[];
         id: number;
         guid: string;
+        email: string | null;
+        name: string;
         createdAt: Date;
         updatedAt: Date;
         createdBy: string | null;
         updatedBy: string | null;
-        name: string;
         phone: string;
-        email: string | null;
         status: import(".prisma/client").$Enums.CustomerStatus;
         loyaltyPoints: number;
         profileImageUrl: string | null;
@@ -227,21 +227,21 @@ export declare class AdminCustomerController {
     createTag(dto: CreateCustomerTagDto): Promise<{
         id: number;
         guid: string;
+        name: string;
         createdAt: Date;
         updatedAt: Date;
-        createdBy: string | null;
         isDeleted: boolean;
-        name: string;
+        createdBy: string | null;
         colorHex: string | null;
     }>;
     getAllTags(): Promise<{
         id: number;
         guid: string;
+        name: string;
         createdAt: Date;
         updatedAt: Date;
-        createdBy: string | null;
         isDeleted: boolean;
-        name: string;
+        createdBy: string | null;
         colorHex: string | null;
     }[]>;
     assignTag(customerId: number, tagId: number): Promise<{
@@ -255,8 +255,8 @@ export declare class AdminCustomerController {
         guid: string;
         createdAt: Date;
         updatedAt: Date;
-        createdBy: string | null;
         isDeleted: boolean;
+        createdBy: string | null;
         customerId: number;
         note: string;
     }[]>;
@@ -267,8 +267,8 @@ export declare class AdminCustomerController {
         guid: string;
         createdAt: Date;
         updatedAt: Date;
-        createdBy: string | null;
         isDeleted: boolean;
+        createdBy: string | null;
         customerId: number;
         note: string;
     }>;
@@ -277,8 +277,8 @@ export declare class AdminCustomerController {
         guid: string;
         createdAt: Date;
         updatedAt: Date;
-        createdBy: string | null;
         isDeleted: boolean;
+        createdBy: string | null;
         customerId: number;
         note: string;
     }>;

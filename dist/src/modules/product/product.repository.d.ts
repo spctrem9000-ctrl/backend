@@ -9,26 +9,26 @@ export declare class ProductRepository {
         category: {
             id: number;
             guid: string;
+            createdAt: Date;
+            updatedAt: Date;
+            isDeleted: boolean;
+            categoryCode: string;
             nameAr: string;
             nameEn: string;
             descriptionAr: string | null;
             descriptionEn: string | null;
-            isFeatured: boolean;
-            createdAt: Date;
-            updatedAt: Date;
-            createdBy: string | null;
-            updatedBy: string | null;
-            isDeleted: boolean;
-            isActive: boolean;
-            categoryCode: string;
             image: string | null;
             displayOrder: number;
+            isActive: boolean;
+            isFeatured: boolean;
+            createdBy: string | null;
+            updatedBy: string | null;
         };
         images: {
             id: number;
-            sortOrder: number;
             createdAt: Date;
             productId: number;
+            sortOrder: number;
             imageUrl: string;
         }[];
         priceHistory: {
@@ -55,14 +55,14 @@ export declare class ProductRepository {
                 extras: {
                     id: number;
                     guid: string;
-                    nameAr: string;
-                    nameEn: string;
-                    sortOrder: number;
-                    isAvailable: boolean;
                     createdAt: Date;
                     updatedAt: Date;
-                    createdBy: string | null;
                     isDeleted: boolean;
+                    nameAr: string;
+                    nameEn: string;
+                    createdBy: string | null;
+                    sortOrder: number;
+                    isAvailable: boolean;
                     imageUrl: string | null;
                     extraGroupId: number;
                     price: Prisma.Decimal;
@@ -70,14 +70,14 @@ export declare class ProductRepository {
             } & {
                 id: number;
                 guid: string;
-                nameAr: string;
-                nameEn: string;
-                sortOrder: number;
-                isAvailable: boolean;
                 createdAt: Date;
                 updatedAt: Date;
-                createdBy: string | null;
                 isDeleted: boolean;
+                nameAr: string;
+                nameEn: string;
+                createdBy: string | null;
+                sortOrder: number;
+                isAvailable: boolean;
                 selectionType: import(".prisma/client").$Enums.SelectionType;
                 isRequired: boolean;
                 minSelection: number;
@@ -91,11 +91,17 @@ export declare class ProductRepository {
     } & {
         id: number;
         guid: string;
-        productCode: string;
+        createdAt: Date;
+        updatedAt: Date;
+        isDeleted: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
         descriptionEn: string | null;
+        isFeatured: boolean;
+        createdBy: string | null;
+        updatedBy: string | null;
+        productCode: string;
         categoryId: number;
         mainImage: string | null;
         basePrice: Prisma.Decimal;
@@ -104,23 +110,17 @@ export declare class ProductRepository {
         calories: number | null;
         sortOrder: number;
         isAvailable: boolean;
-        isFeatured: boolean;
         isBestSeller: boolean;
         isNew: boolean;
         isOffer: boolean;
-        createdAt: Date;
-        updatedAt: Date;
-        createdBy: string | null;
-        updatedBy: string | null;
-        isDeleted: boolean;
     }) | null>;
     findByCode(productCode: string): Promise<Product | null>;
     update(id: number, data: Prisma.ProductUpdateInput): Promise<{
         images: {
             id: number;
-            sortOrder: number;
             createdAt: Date;
             productId: number;
+            sortOrder: number;
             imageUrl: string;
         }[];
         insight: {
@@ -136,11 +136,17 @@ export declare class ProductRepository {
     } & {
         id: number;
         guid: string;
-        productCode: string;
+        createdAt: Date;
+        updatedAt: Date;
+        isDeleted: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
         descriptionEn: string | null;
+        isFeatured: boolean;
+        createdBy: string | null;
+        updatedBy: string | null;
+        productCode: string;
         categoryId: number;
         mainImage: string | null;
         basePrice: Prisma.Decimal;
@@ -149,15 +155,9 @@ export declare class ProductRepository {
         calories: number | null;
         sortOrder: number;
         isAvailable: boolean;
-        isFeatured: boolean;
         isBestSeller: boolean;
         isNew: boolean;
         isOffer: boolean;
-        createdAt: Date;
-        updatedAt: Date;
-        createdBy: string | null;
-        updatedBy: string | null;
-        isDeleted: boolean;
     }>;
     findAll(filters: ProductFilterDto, isAdmin?: boolean): Promise<({
         category: {
@@ -167,9 +167,9 @@ export declare class ProductRepository {
         };
         images: {
             id: number;
-            sortOrder: number;
             createdAt: Date;
             productId: number;
+            sortOrder: number;
             imageUrl: string;
         }[];
         insight: {
@@ -185,11 +185,17 @@ export declare class ProductRepository {
     } & {
         id: number;
         guid: string;
-        productCode: string;
+        createdAt: Date;
+        updatedAt: Date;
+        isDeleted: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
         descriptionEn: string | null;
+        isFeatured: boolean;
+        createdBy: string | null;
+        updatedBy: string | null;
+        productCode: string;
         categoryId: number;
         mainImage: string | null;
         basePrice: Prisma.Decimal;
@@ -198,15 +204,9 @@ export declare class ProductRepository {
         calories: number | null;
         sortOrder: number;
         isAvailable: boolean;
-        isFeatured: boolean;
         isBestSeller: boolean;
         isNew: boolean;
         isOffer: boolean;
-        createdAt: Date;
-        updatedAt: Date;
-        createdBy: string | null;
-        updatedBy: string | null;
-        isDeleted: boolean;
     })[]>;
     logActivity(productId: number, action: ActivityAction, adminId: string, details?: any): Promise<{
         id: number;

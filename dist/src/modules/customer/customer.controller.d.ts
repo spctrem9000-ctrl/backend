@@ -8,13 +8,13 @@ export declare class CustomerController {
     }): Promise<{
         id: number;
         guid: string;
+        email: string | null;
+        name: string;
         createdAt: Date;
         updatedAt: Date;
         createdBy: string | null;
         updatedBy: string | null;
-        name: string;
         phone: string;
-        email: string | null;
         status: import(".prisma/client").$Enums.CustomerStatus;
         loyaltyPoints: number;
         profileImageUrl: string | null;
@@ -29,13 +29,13 @@ export declare class CustomerController {
     }, updateDto: UpdateProfileDto): Promise<{
         id: number;
         guid: string;
+        email: string | null;
+        name: string;
         createdAt: Date;
         updatedAt: Date;
         createdBy: string | null;
         updatedBy: string | null;
-        name: string;
         phone: string;
-        email: string | null;
         status: import(".prisma/client").$Enums.CustomerStatus;
         loyaltyPoints: number;
         profileImageUrl: string | null;

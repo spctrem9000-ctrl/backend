@@ -111,7 +111,11 @@ export class OrderService {
         items: {
           include: {
             product: { select: { nameAr: true, nameEn: true } },
-            extras: { include: { extra: { select: { nameAr: true, nameEn: true, price: true } } } },
+            extras: {
+              include: {
+                extra: { select: { nameAr: true, nameEn: true, price: true } },
+              },
+            },
           },
         },
       },

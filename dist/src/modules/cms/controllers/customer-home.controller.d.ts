@@ -7,11 +7,17 @@ export declare class CustomerHomeController {
             product: {
                 id: number;
                 guid: string;
-                productCode: string;
+                createdAt: Date;
+                updatedAt: Date;
+                isDeleted: boolean;
                 nameAr: string;
                 nameEn: string;
                 descriptionAr: string | null;
                 descriptionEn: string | null;
+                isFeatured: boolean;
+                createdBy: string | null;
+                updatedBy: string | null;
+                productCode: string;
                 categoryId: number;
                 mainImage: string | null;
                 basePrice: import("@prisma/client/runtime/library").Decimal;
@@ -20,31 +26,25 @@ export declare class CustomerHomeController {
                 calories: number | null;
                 sortOrder: number;
                 isAvailable: boolean;
-                isFeatured: boolean;
                 isBestSeller: boolean;
                 isNew: boolean;
                 isOffer: boolean;
-                createdAt: Date;
-                updatedAt: Date;
-                createdBy: string | null;
-                updatedBy: string | null;
-                isDeleted: boolean;
             };
         } & {
-            sortOrder: number;
             productId: number;
+            sortOrder: number;
             homeSectionId: number;
         })[];
     } & {
         id: number;
         guid: string;
-        sortOrder: number;
         createdAt: Date;
         updatedAt: Date;
+        isActive: boolean;
         type: import(".prisma/client").$Enums.HomeSectionType;
         titleAr: string | null;
         titleEn: string | null;
         maxItems: number;
-        isActive: boolean;
+        sortOrder: number;
     })[]>;
 }

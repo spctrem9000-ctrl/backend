@@ -31,9 +31,8 @@ let CheckoutService = class CheckoutService {
         });
         if (!customer)
             throw new common_1.BadRequestException('Customer not found');
-        if (customer.status === client_1.CustomerStatus.GUEST ||
-            customer.status === client_1.CustomerStatus.UNVERIFIED) {
-            throw new common_1.BadRequestException('Guest/Unverified customers cannot place orders. Please verify account.');
+        if (customer.status === client_1.CustomerStatus.BLOCKED) {
+            throw new common_1.BadRequestException('Your account has been blocked. Please contact support.');
         }
         const cart = await this.cartService.getCart(customerId);
         if (!cart.items || cart.items.length === 0) {

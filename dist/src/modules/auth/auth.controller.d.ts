@@ -10,15 +10,15 @@ export declare class AuthController {
         profile: {
             id: number;
             guid: string;
+            email: string | null;
+            name: string;
             createdAt: Date;
             updatedAt: Date;
+            isDeleted: boolean;
             createdBy: string | null;
             updatedBy: string | null;
-            isDeleted: boolean;
-            name: string;
             phone: string;
             passwordHash: string;
-            email: string | null;
             status: import(".prisma/client").$Enums.CustomerStatus;
             loyaltyPoints: number;
             hashedRefreshToken: string | null;
@@ -38,15 +38,15 @@ export declare class AuthController {
         profile: {
             id: number;
             guid: string;
+            email: string | null;
+            name: string;
             createdAt: Date;
             updatedAt: Date;
+            isDeleted: boolean;
             createdBy: string | null;
             updatedBy: string | null;
-            isDeleted: boolean;
-            name: string;
             phone: string;
             passwordHash: string;
-            email: string | null;
             status: import(".prisma/client").$Enums.CustomerStatus;
             loyaltyPoints: number;
             hashedRefreshToken: string | null;

@@ -26,6 +26,15 @@ let StorageService = StorageService_1 = class StorageService {
         this.imageProcessor = imageProcessor;
     }
     async uploadSingle(file, folder) {
+        const isAudio = file.mimetype.startsWith('audio/');
+        if (isAudio) {
+            const ext = file.originalname.split('.').pop() || 'mp3';
+            const { v4: uuidv4 } = await import('uuid');
+            const filename = `${uuidv4()}.${ext}`;
+            const url = await this.storageProvider.uploadFile(file.buffer, filename, folder, file.mimetype);
+            this.logger.log(`Audio file uploaded to folder ${folder}: ${filename}`);
+            return { originalUrl: url, mediumUrl: url, thumbnailUrl: url };
+        }
         const { original, medium, thumbnail, filename } = await this.imageProcessor.processImage(file.buffer);
         const mimeType = 'image/webp';
         const [originalUrl, mediumUrl, thumbnailUrl] = await Promise.all([

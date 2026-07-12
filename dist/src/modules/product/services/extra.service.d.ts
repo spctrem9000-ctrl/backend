@@ -9,14 +9,14 @@ export declare class ExtraService {
     createGroup(dto: CreateExtraGroupDto, adminId: string): Promise<{
         id: number;
         guid: string;
-        nameAr: string;
-        nameEn: string;
-        sortOrder: number;
-        isAvailable: boolean;
         createdAt: Date;
         updatedAt: Date;
-        createdBy: string | null;
         isDeleted: boolean;
+        nameAr: string;
+        nameEn: string;
+        createdBy: string | null;
+        sortOrder: number;
+        isAvailable: boolean;
         selectionType: import(".prisma/client").$Enums.SelectionType;
         isRequired: boolean;
         minSelection: number;
@@ -25,14 +25,14 @@ export declare class ExtraService {
     updateGroup(id: number, dto: UpdateExtraGroupDto, _adminId: string): Promise<{
         id: number;
         guid: string;
-        nameAr: string;
-        nameEn: string;
-        sortOrder: number;
-        isAvailable: boolean;
         createdAt: Date;
         updatedAt: Date;
-        createdBy: string | null;
         isDeleted: boolean;
+        nameAr: string;
+        nameEn: string;
+        createdBy: string | null;
+        sortOrder: number;
+        isAvailable: boolean;
         selectionType: import(".prisma/client").$Enums.SelectionType;
         isRequired: boolean;
         minSelection: number;
@@ -41,14 +41,14 @@ export declare class ExtraService {
     deleteGroup(id: number, _adminId: string): Promise<{
         id: number;
         guid: string;
-        nameAr: string;
-        nameEn: string;
-        sortOrder: number;
-        isAvailable: boolean;
         createdAt: Date;
         updatedAt: Date;
-        createdBy: string | null;
         isDeleted: boolean;
+        nameAr: string;
+        nameEn: string;
+        createdBy: string | null;
+        sortOrder: number;
+        isAvailable: boolean;
         selectionType: import(".prisma/client").$Enums.SelectionType;
         isRequired: boolean;
         minSelection: number;
@@ -58,14 +58,14 @@ export declare class ExtraService {
         extras: {
             id: number;
             guid: string;
-            nameAr: string;
-            nameEn: string;
-            sortOrder: number;
-            isAvailable: boolean;
             createdAt: Date;
             updatedAt: Date;
-            createdBy: string | null;
             isDeleted: boolean;
+            nameAr: string;
+            nameEn: string;
+            createdBy: string | null;
+            sortOrder: number;
+            isAvailable: boolean;
             imageUrl: string | null;
             extraGroupId: number;
             price: import("@prisma/client/runtime/library").Decimal;
@@ -73,14 +73,14 @@ export declare class ExtraService {
     } & {
         id: number;
         guid: string;
-        nameAr: string;
-        nameEn: string;
-        sortOrder: number;
-        isAvailable: boolean;
         createdAt: Date;
         updatedAt: Date;
-        createdBy: string | null;
         isDeleted: boolean;
+        nameAr: string;
+        nameEn: string;
+        createdBy: string | null;
+        sortOrder: number;
+        isAvailable: boolean;
         selectionType: import(".prisma/client").$Enums.SelectionType;
         isRequired: boolean;
         minSelection: number;
@@ -89,14 +89,14 @@ export declare class ExtraService {
     createExtra(groupId: number, dto: CreateExtraDto, adminId: string): Promise<{
         id: number;
         guid: string;
-        nameAr: string;
-        nameEn: string;
-        sortOrder: number;
-        isAvailable: boolean;
         createdAt: Date;
         updatedAt: Date;
-        createdBy: string | null;
         isDeleted: boolean;
+        nameAr: string;
+        nameEn: string;
+        createdBy: string | null;
+        sortOrder: number;
+        isAvailable: boolean;
         imageUrl: string | null;
         extraGroupId: number;
         price: import("@prisma/client/runtime/library").Decimal;
@@ -104,14 +104,14 @@ export declare class ExtraService {
     updateExtra(id: number, dto: UpdateExtraDto, _adminId: string): Promise<{
         id: number;
         guid: string;
-        nameAr: string;
-        nameEn: string;
-        sortOrder: number;
-        isAvailable: boolean;
         createdAt: Date;
         updatedAt: Date;
-        createdBy: string | null;
         isDeleted: boolean;
+        nameAr: string;
+        nameEn: string;
+        createdBy: string | null;
+        sortOrder: number;
+        isAvailable: boolean;
         imageUrl: string | null;
         extraGroupId: number;
         price: import("@prisma/client/runtime/library").Decimal;
@@ -119,14 +119,14 @@ export declare class ExtraService {
     deleteExtra(id: number, _adminId: string): Promise<{
         id: number;
         guid: string;
-        nameAr: string;
-        nameEn: string;
-        sortOrder: number;
-        isAvailable: boolean;
         createdAt: Date;
         updatedAt: Date;
-        createdBy: string | null;
         isDeleted: boolean;
+        nameAr: string;
+        nameEn: string;
+        createdBy: string | null;
+        sortOrder: number;
+        isAvailable: boolean;
         imageUrl: string | null;
         extraGroupId: number;
         price: import("@prisma/client/runtime/library").Decimal;

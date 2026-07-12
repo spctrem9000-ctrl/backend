@@ -37,7 +37,7 @@ export class BannerService {
 
   async createBanner(data: any) {
     const count = await this.prisma.banner.count();
-    
+
     if (data.targetUrl !== undefined) {
       data.targetId = data.targetUrl;
       delete data.targetUrl;

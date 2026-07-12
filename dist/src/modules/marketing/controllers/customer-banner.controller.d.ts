@@ -2,22 +2,5 @@ import { BannerService } from '../services/banner.service';
 export declare class CustomerBannerController {
     private readonly bannerService;
     constructor(bannerService: BannerService);
-    getBanners(): Promise<{
-        id: number;
-        guid: string;
-        sortOrder: number;
-        createdAt: Date;
-        updatedAt: Date;
-        titleAr: string | null;
-        titleEn: string | null;
-        isActive: boolean;
-        targetType: import(".prisma/client").$Enums.BannerTargetType;
-        imageUrl: string;
-        subtitleAr: string | null;
-        subtitleEn: string | null;
-        buttonText: string | null;
-        targetId: string | null;
-        startDate: Date | null;
-        endDate: Date | null;
-    }[]>;
+    getBanners(): Promise<any[]>;
 }

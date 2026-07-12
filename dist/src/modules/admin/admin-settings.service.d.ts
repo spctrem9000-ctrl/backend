@@ -9,9 +9,9 @@ export declare class AdminSettingsService {
             guid: string;
             createdAt: Date;
             updatedAt: Date;
+            isDeleted: boolean;
             createdBy: string | null;
             updatedBy: string | null;
-            isDeleted: boolean;
             description: string | null;
             value: import("@prisma/client/runtime/library").JsonValue;
             key: string;
@@ -24,9 +24,9 @@ export declare class AdminSettingsService {
             guid: string;
             createdAt: Date;
             updatedAt: Date;
+            isDeleted: boolean;
             createdBy: string | null;
             updatedBy: string | null;
-            isDeleted: boolean;
             description: string | null;
             value: import("@prisma/client/runtime/library").JsonValue;
             key: string;
@@ -39,9 +39,9 @@ export declare class AdminSettingsService {
             guid: string;
             createdAt: Date;
             updatedAt: Date;
+            isDeleted: boolean;
             createdBy: string | null;
             updatedBy: string | null;
-            isDeleted: boolean;
             description: string | null;
             value: import("@prisma/client/runtime/library").JsonValue;
             key: string;

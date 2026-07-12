@@ -7,11 +7,11 @@ export declare class AdminAuthController {
         profile: {
             id: number;
             guid: string;
+            email: string;
+            name: string;
             createdAt: Date;
             updatedAt: Date;
             isDeleted: boolean;
-            name: string;
-            email: string;
         };
         tokens: {
             accessToken: string;

@@ -14,6 +14,7 @@ const class_validator_1 = require("class-validator");
 const swagger_1 = require("@nestjs/swagger");
 class UpdateProfileDto {
     name;
+    profileImageUrl;
     email;
 }
 exports.UpdateProfileDto = UpdateProfileDto;
@@ -24,6 +25,12 @@ __decorate([
     (0, class_validator_1.MinLength)(2),
     __metadata("design:type", String)
 ], UpdateProfileDto.prototype, "name", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({ example: 'https://example.com/avatar.jpg' }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateProfileDto.prototype, "profileImageUrl", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({ example: 'john@example.com' }),
     (0, class_validator_1.IsOptional)(),

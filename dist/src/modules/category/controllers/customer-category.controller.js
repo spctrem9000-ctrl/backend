@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CustomerCategoryController = void 0;
 const common_1 = require("@nestjs/common");
 const category_service_1 = require("../category.service");
-const jwt_auth_guard_1 = require("../../../common/guards/jwt-auth.guard");
 const swagger_1 = require("@nestjs/swagger");
 let CustomerCategoryController = class CustomerCategoryController {
     categoryService;
@@ -43,8 +42,6 @@ __decorate([
 ], CustomerCategoryController.prototype, "getFeaturedCategories", null);
 exports.CustomerCategoryController = CustomerCategoryController = __decorate([
     (0, swagger_1.ApiTags)('CustomerApp-Categories'),
-    (0, swagger_1.ApiBearerAuth)(),
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Controller)('categories'),
     __metadata("design:paramtypes", [category_service_1.CategoryService])
 ], CustomerCategoryController);

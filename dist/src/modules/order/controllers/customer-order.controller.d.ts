@@ -37,11 +37,17 @@ export declare class CustomerOrderController {
             product: {
                 id: number;
                 guid: string;
-                productCode: string;
+                createdAt: Date;
+                updatedAt: Date;
+                isDeleted: boolean;
                 nameAr: string;
                 nameEn: string;
                 descriptionAr: string | null;
                 descriptionEn: string | null;
+                isFeatured: boolean;
+                createdBy: string | null;
+                updatedBy: string | null;
+                productCode: string;
                 categoryId: number;
                 mainImage: string | null;
                 basePrice: import("@prisma/client/runtime/library").Decimal;
@@ -50,15 +56,9 @@ export declare class CustomerOrderController {
                 calories: number | null;
                 sortOrder: number;
                 isAvailable: boolean;
-                isFeatured: boolean;
                 isBestSeller: boolean;
                 isNew: boolean;
                 isOffer: boolean;
-                createdAt: Date;
-                updatedAt: Date;
-                createdBy: string | null;
-                updatedBy: string | null;
-                isDeleted: boolean;
             };
         } & {
             id: number;
@@ -116,11 +116,17 @@ export declare class CustomerOrderController {
             product: {
                 id: number;
                 guid: string;
-                productCode: string;
+                createdAt: Date;
+                updatedAt: Date;
+                isDeleted: boolean;
                 nameAr: string;
                 nameEn: string;
                 descriptionAr: string | null;
                 descriptionEn: string | null;
+                isFeatured: boolean;
+                createdBy: string | null;
+                updatedBy: string | null;
+                productCode: string;
                 categoryId: number;
                 mainImage: string | null;
                 basePrice: import("@prisma/client/runtime/library").Decimal;
@@ -129,28 +135,22 @@ export declare class CustomerOrderController {
                 calories: number | null;
                 sortOrder: number;
                 isAvailable: boolean;
-                isFeatured: boolean;
                 isBestSeller: boolean;
                 isNew: boolean;
                 isOffer: boolean;
-                createdAt: Date;
-                updatedAt: Date;
-                createdBy: string | null;
-                updatedBy: string | null;
-                isDeleted: boolean;
             };
             extras: ({
                 extra: {
                     id: number;
                     guid: string;
-                    nameAr: string;
-                    nameEn: string;
-                    sortOrder: number;
-                    isAvailable: boolean;
                     createdAt: Date;
                     updatedAt: Date;
-                    createdBy: string | null;
                     isDeleted: boolean;
+                    nameAr: string;
+                    nameEn: string;
+                    createdBy: string | null;
+                    sortOrder: number;
+                    isAvailable: boolean;
                     imageUrl: string | null;
                     extraGroupId: number;
                     price: import("@prisma/client/runtime/library").Decimal;

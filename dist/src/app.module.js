@@ -11,6 +11,7 @@ const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
 const core_1 = require("@nestjs/core");
 const nestjs_pino_1 = require("nestjs-pino");
+const throttler_1 = require("@nestjs/throttler");
 const env_validation_1 = require("./core/config/env.validation");
 const prisma_module_1 = require("./core/prisma/prisma.module");
 const health_module_1 = require("./core/health/health.module");
@@ -39,6 +40,12 @@ exports.AppModule = AppModule = __decorate([
                 isGlobal: true,
                 validate: env_validation_1.validate,
             }),
+            throttler_1.ThrottlerModule.forRoot([
+                {
+                    ttl: 60000,
+                    limit: 100,
+                },
+            ]),
             nestjs_pino_1.LoggerModule.forRoot({
                 pinoHttp: {
                     level: process.env.NODE_ENV !== 'production' ? 'debug' : 'info',
@@ -68,6 +75,10 @@ exports.AppModule = AppModule = __decorate([
         ],
         controllers: [],
         providers: [
+            {
+                provide: core_1.APP_GUARD,
+                useClass: throttler_1.ThrottlerGuard,
+            },
             {
                 provide: core_1.APP_GUARD,
                 useClass: jwt_auth_guard_1.JwtAuthGuard,

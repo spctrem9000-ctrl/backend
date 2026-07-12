@@ -11,11 +11,17 @@ export declare class OrderService {
             product: {
                 id: number;
                 guid: string;
-                productCode: string;
+                createdAt: Date;
+                updatedAt: Date;
+                isDeleted: boolean;
                 nameAr: string;
                 nameEn: string;
                 descriptionAr: string | null;
                 descriptionEn: string | null;
+                isFeatured: boolean;
+                createdBy: string | null;
+                updatedBy: string | null;
+                productCode: string;
                 categoryId: number;
                 mainImage: string | null;
                 basePrice: import("@prisma/client/runtime/library").Decimal;
@@ -24,15 +30,9 @@ export declare class OrderService {
                 calories: number | null;
                 sortOrder: number;
                 isAvailable: boolean;
-                isFeatured: boolean;
                 isBestSeller: boolean;
                 isNew: boolean;
                 isOffer: boolean;
-                createdAt: Date;
-                updatedAt: Date;
-                createdBy: string | null;
-                updatedBy: string | null;
-                isDeleted: boolean;
             };
         } & {
             id: number;
@@ -88,11 +88,17 @@ export declare class OrderService {
             product: {
                 id: number;
                 guid: string;
-                productCode: string;
+                createdAt: Date;
+                updatedAt: Date;
+                isDeleted: boolean;
                 nameAr: string;
                 nameEn: string;
                 descriptionAr: string | null;
                 descriptionEn: string | null;
+                isFeatured: boolean;
+                createdBy: string | null;
+                updatedBy: string | null;
+                productCode: string;
                 categoryId: number;
                 mainImage: string | null;
                 basePrice: import("@prisma/client/runtime/library").Decimal;
@@ -101,28 +107,22 @@ export declare class OrderService {
                 calories: number | null;
                 sortOrder: number;
                 isAvailable: boolean;
-                isFeatured: boolean;
                 isBestSeller: boolean;
                 isNew: boolean;
                 isOffer: boolean;
-                createdAt: Date;
-                updatedAt: Date;
-                createdBy: string | null;
-                updatedBy: string | null;
-                isDeleted: boolean;
             };
             extras: ({
                 extra: {
                     id: number;
                     guid: string;
-                    nameAr: string;
-                    nameEn: string;
-                    sortOrder: number;
-                    isAvailable: boolean;
                     createdAt: Date;
                     updatedAt: Date;
-                    createdBy: string | null;
                     isDeleted: boolean;
+                    nameAr: string;
+                    nameEn: string;
+                    createdBy: string | null;
+                    sortOrder: number;
+                    isAvailable: boolean;
                     imageUrl: string | null;
                     extraGroupId: number;
                     price: import("@prisma/client/runtime/library").Decimal;
@@ -198,8 +198,26 @@ export declare class OrderService {
     }>;
     getOrders(filters: OrderFilterDto): Promise<({
         customer: {
+            id: number;
+            guid: string;
+            email: string | null;
             name: string;
+            createdAt: Date;
+            updatedAt: Date;
+            isDeleted: boolean;
+            createdBy: string | null;
+            updatedBy: string | null;
             phone: string;
+            passwordHash: string;
+            status: import(".prisma/client").$Enums.CustomerStatus;
+            loyaltyPoints: number;
+            hashedRefreshToken: string | null;
+            profileImageUrl: string | null;
+            totalOrders: number;
+            completedOrders: number;
+            cancelledOrders: number;
+            totalSpent: import("@prisma/client/runtime/library").Decimal;
+            lastOrderDate: Date | null;
         };
         address: {
             id: number;
@@ -218,6 +236,32 @@ export declare class OrderService {
             isDefault: boolean;
             customerId: number;
         } | null;
+        items: ({
+            product: {
+                nameAr: string;
+                nameEn: string;
+            };
+            extras: ({
+                extra: {
+                    nameAr: string;
+                    nameEn: string;
+                    price: import("@prisma/client/runtime/library").Decimal;
+                };
+            } & {
+                id: number;
+                price: import("@prisma/client/runtime/library").Decimal;
+                extraId: number;
+                orderItemId: number;
+            })[];
+        } & {
+            id: number;
+            guid: string;
+            productId: number;
+            orderId: number;
+            quantity: number;
+            unitPrice: import("@prisma/client/runtime/library").Decimal;
+            totalPrice: import("@prisma/client/runtime/library").Decimal;
+        })[];
     } & {
         id: number;
         guid: string;
@@ -242,27 +286,18 @@ export declare class OrderService {
         addressId: number | null;
     })[]>;
     getAdminOrderDetails(orderId: number): Promise<{
-        activityLogs: {
-            id: number;
-            createdAt: Date;
-            customerId: string | null;
-            orderId: number;
-            adminId: string | null;
-            action: import(".prisma/client").$Enums.OrderAction;
-            details: import("@prisma/client/runtime/library").JsonValue | null;
-        }[];
         customer: {
             id: number;
             guid: string;
+            email: string | null;
+            name: string;
             createdAt: Date;
             updatedAt: Date;
+            isDeleted: boolean;
             createdBy: string | null;
             updatedBy: string | null;
-            isDeleted: boolean;
-            name: string;
             phone: string;
             passwordHash: string;
-            email: string | null;
             status: import(".prisma/client").$Enums.CustomerStatus;
             loyaltyPoints: number;
             hashedRefreshToken: string | null;
@@ -294,11 +329,17 @@ export declare class OrderService {
             product: {
                 id: number;
                 guid: string;
-                productCode: string;
+                createdAt: Date;
+                updatedAt: Date;
+                isDeleted: boolean;
                 nameAr: string;
                 nameEn: string;
                 descriptionAr: string | null;
                 descriptionEn: string | null;
+                isFeatured: boolean;
+                createdBy: string | null;
+                updatedBy: string | null;
+                productCode: string;
                 categoryId: number;
                 mainImage: string | null;
                 basePrice: import("@prisma/client/runtime/library").Decimal;
@@ -307,28 +348,22 @@ export declare class OrderService {
                 calories: number | null;
                 sortOrder: number;
                 isAvailable: boolean;
-                isFeatured: boolean;
                 isBestSeller: boolean;
                 isNew: boolean;
                 isOffer: boolean;
-                createdAt: Date;
-                updatedAt: Date;
-                createdBy: string | null;
-                updatedBy: string | null;
-                isDeleted: boolean;
             };
             extras: ({
                 extra: {
                     id: number;
                     guid: string;
-                    nameAr: string;
-                    nameEn: string;
-                    sortOrder: number;
-                    isAvailable: boolean;
                     createdAt: Date;
                     updatedAt: Date;
-                    createdBy: string | null;
                     isDeleted: boolean;
+                    nameAr: string;
+                    nameEn: string;
+                    createdBy: string | null;
+                    sortOrder: number;
+                    isAvailable: boolean;
                     imageUrl: string | null;
                     extraGroupId: number;
                     price: import("@prisma/client/runtime/library").Decimal;
@@ -355,6 +390,15 @@ export declare class OrderService {
             changedAt: Date;
             oldStatus: import(".prisma/client").$Enums.OrderStatus | null;
             newStatus: import(".prisma/client").$Enums.OrderStatus;
+        }[];
+        activityLogs: {
+            id: number;
+            createdAt: Date;
+            customerId: string | null;
+            orderId: number;
+            adminId: string | null;
+            action: import(".prisma/client").$Enums.OrderAction;
+            details: import("@prisma/client/runtime/library").JsonValue | null;
         }[];
     } & {
         id: number;

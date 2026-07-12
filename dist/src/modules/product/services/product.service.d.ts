@@ -12,11 +12,17 @@ export declare class ProductService {
     create(dto: CreateProductDto, adminId: string): Promise<{
         id: number;
         guid: string;
-        productCode: string;
+        createdAt: Date;
+        updatedAt: Date;
+        isDeleted: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
         descriptionEn: string | null;
+        isFeatured: boolean;
+        createdBy: string | null;
+        updatedBy: string | null;
+        productCode: string;
         categoryId: number;
         mainImage: string | null;
         basePrice: import("@prisma/client/runtime/library").Decimal;
@@ -25,22 +31,16 @@ export declare class ProductService {
         calories: number | null;
         sortOrder: number;
         isAvailable: boolean;
-        isFeatured: boolean;
         isBestSeller: boolean;
         isNew: boolean;
         isOffer: boolean;
-        createdAt: Date;
-        updatedAt: Date;
-        createdBy: string | null;
-        updatedBy: string | null;
-        isDeleted: boolean;
     }>;
     update(id: number, dto: UpdateProductDto, adminId: string): Promise<{
         images: {
             id: number;
-            sortOrder: number;
             createdAt: Date;
             productId: number;
+            sortOrder: number;
             imageUrl: string;
         }[];
         insight: {
@@ -56,11 +56,17 @@ export declare class ProductService {
     } & {
         id: number;
         guid: string;
-        productCode: string;
+        createdAt: Date;
+        updatedAt: Date;
+        isDeleted: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
         descriptionEn: string | null;
+        isFeatured: boolean;
+        createdBy: string | null;
+        updatedBy: string | null;
+        productCode: string;
         categoryId: number;
         mainImage: string | null;
         basePrice: import("@prisma/client/runtime/library").Decimal;
@@ -69,22 +75,16 @@ export declare class ProductService {
         calories: number | null;
         sortOrder: number;
         isAvailable: boolean;
-        isFeatured: boolean;
         isBestSeller: boolean;
         isNew: boolean;
         isOffer: boolean;
-        createdAt: Date;
-        updatedAt: Date;
-        createdBy: string | null;
-        updatedBy: string | null;
-        isDeleted: boolean;
     }>;
     delete(id: number, adminId: string): Promise<{
         images: {
             id: number;
-            sortOrder: number;
             createdAt: Date;
             productId: number;
+            sortOrder: number;
             imageUrl: string;
         }[];
         insight: {
@@ -100,11 +100,17 @@ export declare class ProductService {
     } & {
         id: number;
         guid: string;
-        productCode: string;
+        createdAt: Date;
+        updatedAt: Date;
+        isDeleted: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
         descriptionEn: string | null;
+        isFeatured: boolean;
+        createdBy: string | null;
+        updatedBy: string | null;
+        productCode: string;
         categoryId: number;
         mainImage: string | null;
         basePrice: import("@prisma/client/runtime/library").Decimal;
@@ -113,22 +119,16 @@ export declare class ProductService {
         calories: number | null;
         sortOrder: number;
         isAvailable: boolean;
-        isFeatured: boolean;
         isBestSeller: boolean;
         isNew: boolean;
         isOffer: boolean;
-        createdAt: Date;
-        updatedAt: Date;
-        createdBy: string | null;
-        updatedBy: string | null;
-        isDeleted: boolean;
     }>;
     restore(id: number, adminId: string): Promise<{
         images: {
             id: number;
-            sortOrder: number;
             createdAt: Date;
             productId: number;
+            sortOrder: number;
             imageUrl: string;
         }[];
         insight: {
@@ -144,11 +144,17 @@ export declare class ProductService {
     } & {
         id: number;
         guid: string;
-        productCode: string;
+        createdAt: Date;
+        updatedAt: Date;
+        isDeleted: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
         descriptionEn: string | null;
+        isFeatured: boolean;
+        createdBy: string | null;
+        updatedBy: string | null;
+        productCode: string;
         categoryId: number;
         mainImage: string | null;
         basePrice: import("@prisma/client/runtime/library").Decimal;
@@ -157,24 +163,24 @@ export declare class ProductService {
         calories: number | null;
         sortOrder: number;
         isAvailable: boolean;
-        isFeatured: boolean;
         isBestSeller: boolean;
         isNew: boolean;
         isOffer: boolean;
-        createdAt: Date;
-        updatedAt: Date;
-        createdBy: string | null;
-        updatedBy: string | null;
-        isDeleted: boolean;
     }>;
     duplicateProduct(id: number, adminId: string): Promise<{
         id: number;
         guid: string;
-        productCode: string;
+        createdAt: Date;
+        updatedAt: Date;
+        isDeleted: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
         descriptionEn: string | null;
+        isFeatured: boolean;
+        createdBy: string | null;
+        updatedBy: string | null;
+        productCode: string;
         categoryId: number;
         mainImage: string | null;
         basePrice: import("@prisma/client/runtime/library").Decimal;
@@ -183,22 +189,16 @@ export declare class ProductService {
         calories: number | null;
         sortOrder: number;
         isAvailable: boolean;
-        isFeatured: boolean;
         isBestSeller: boolean;
         isNew: boolean;
         isOffer: boolean;
-        createdAt: Date;
-        updatedAt: Date;
-        createdBy: string | null;
-        updatedBy: string | null;
-        isDeleted: boolean;
     }>;
     toggleStatus(id: number, isAvailable: boolean, adminId: string): Promise<{
         images: {
             id: number;
-            sortOrder: number;
             createdAt: Date;
             productId: number;
+            sortOrder: number;
             imageUrl: string;
         }[];
         insight: {
@@ -214,11 +214,17 @@ export declare class ProductService {
     } & {
         id: number;
         guid: string;
-        productCode: string;
+        createdAt: Date;
+        updatedAt: Date;
+        isDeleted: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
         descriptionEn: string | null;
+        isFeatured: boolean;
+        createdBy: string | null;
+        updatedBy: string | null;
+        productCode: string;
         categoryId: number;
         mainImage: string | null;
         basePrice: import("@prisma/client/runtime/library").Decimal;
@@ -227,40 +233,34 @@ export declare class ProductService {
         calories: number | null;
         sortOrder: number;
         isAvailable: boolean;
-        isFeatured: boolean;
         isBestSeller: boolean;
         isNew: boolean;
         isOffer: boolean;
-        createdAt: Date;
-        updatedAt: Date;
-        createdBy: string | null;
-        updatedBy: string | null;
-        isDeleted: boolean;
     }>;
     getAdminDetails(id: number): Promise<{
         category: {
             id: number;
             guid: string;
+            createdAt: Date;
+            updatedAt: Date;
+            isDeleted: boolean;
+            categoryCode: string;
             nameAr: string;
             nameEn: string;
             descriptionAr: string | null;
             descriptionEn: string | null;
-            isFeatured: boolean;
-            createdAt: Date;
-            updatedAt: Date;
-            createdBy: string | null;
-            updatedBy: string | null;
-            isDeleted: boolean;
-            isActive: boolean;
-            categoryCode: string;
             image: string | null;
             displayOrder: number;
+            isActive: boolean;
+            isFeatured: boolean;
+            createdBy: string | null;
+            updatedBy: string | null;
         };
         images: {
             id: number;
-            sortOrder: number;
             createdAt: Date;
             productId: number;
+            sortOrder: number;
             imageUrl: string;
         }[];
         priceHistory: {
@@ -287,14 +287,14 @@ export declare class ProductService {
                 extras: {
                     id: number;
                     guid: string;
-                    nameAr: string;
-                    nameEn: string;
-                    sortOrder: number;
-                    isAvailable: boolean;
                     createdAt: Date;
                     updatedAt: Date;
-                    createdBy: string | null;
                     isDeleted: boolean;
+                    nameAr: string;
+                    nameEn: string;
+                    createdBy: string | null;
+                    sortOrder: number;
+                    isAvailable: boolean;
                     imageUrl: string | null;
                     extraGroupId: number;
                     price: import("@prisma/client/runtime/library").Decimal;
@@ -302,14 +302,14 @@ export declare class ProductService {
             } & {
                 id: number;
                 guid: string;
-                nameAr: string;
-                nameEn: string;
-                sortOrder: number;
-                isAvailable: boolean;
                 createdAt: Date;
                 updatedAt: Date;
-                createdBy: string | null;
                 isDeleted: boolean;
+                nameAr: string;
+                nameEn: string;
+                createdBy: string | null;
+                sortOrder: number;
+                isAvailable: boolean;
                 selectionType: import(".prisma/client").$Enums.SelectionType;
                 isRequired: boolean;
                 minSelection: number;
@@ -323,11 +323,17 @@ export declare class ProductService {
     } & {
         id: number;
         guid: string;
-        productCode: string;
+        createdAt: Date;
+        updatedAt: Date;
+        isDeleted: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
         descriptionEn: string | null;
+        isFeatured: boolean;
+        createdBy: string | null;
+        updatedBy: string | null;
+        productCode: string;
         categoryId: number;
         mainImage: string | null;
         basePrice: import("@prisma/client/runtime/library").Decimal;
@@ -336,40 +342,34 @@ export declare class ProductService {
         calories: number | null;
         sortOrder: number;
         isAvailable: boolean;
-        isFeatured: boolean;
         isBestSeller: boolean;
         isNew: boolean;
         isOffer: boolean;
-        createdAt: Date;
-        updatedAt: Date;
-        createdBy: string | null;
-        updatedBy: string | null;
-        isDeleted: boolean;
     }>;
     getCustomerDetails(id: number): Promise<{
         category: {
             id: number;
             guid: string;
+            createdAt: Date;
+            updatedAt: Date;
+            isDeleted: boolean;
+            categoryCode: string;
             nameAr: string;
             nameEn: string;
             descriptionAr: string | null;
             descriptionEn: string | null;
-            isFeatured: boolean;
-            createdAt: Date;
-            updatedAt: Date;
-            createdBy: string | null;
-            updatedBy: string | null;
-            isDeleted: boolean;
-            isActive: boolean;
-            categoryCode: string;
             image: string | null;
             displayOrder: number;
+            isActive: boolean;
+            isFeatured: boolean;
+            createdBy: string | null;
+            updatedBy: string | null;
         };
         images: {
             id: number;
-            sortOrder: number;
             createdAt: Date;
             productId: number;
+            sortOrder: number;
             imageUrl: string;
         }[];
         priceHistory: {
@@ -396,14 +396,14 @@ export declare class ProductService {
                 extras: {
                     id: number;
                     guid: string;
-                    nameAr: string;
-                    nameEn: string;
-                    sortOrder: number;
-                    isAvailable: boolean;
                     createdAt: Date;
                     updatedAt: Date;
-                    createdBy: string | null;
                     isDeleted: boolean;
+                    nameAr: string;
+                    nameEn: string;
+                    createdBy: string | null;
+                    sortOrder: number;
+                    isAvailable: boolean;
                     imageUrl: string | null;
                     extraGroupId: number;
                     price: import("@prisma/client/runtime/library").Decimal;
@@ -411,14 +411,14 @@ export declare class ProductService {
             } & {
                 id: number;
                 guid: string;
-                nameAr: string;
-                nameEn: string;
-                sortOrder: number;
-                isAvailable: boolean;
                 createdAt: Date;
                 updatedAt: Date;
-                createdBy: string | null;
                 isDeleted: boolean;
+                nameAr: string;
+                nameEn: string;
+                createdBy: string | null;
+                sortOrder: number;
+                isAvailable: boolean;
                 selectionType: import(".prisma/client").$Enums.SelectionType;
                 isRequired: boolean;
                 minSelection: number;
@@ -432,11 +432,17 @@ export declare class ProductService {
     } & {
         id: number;
         guid: string;
-        productCode: string;
+        createdAt: Date;
+        updatedAt: Date;
+        isDeleted: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
         descriptionEn: string | null;
+        isFeatured: boolean;
+        createdBy: string | null;
+        updatedBy: string | null;
+        productCode: string;
         categoryId: number;
         mainImage: string | null;
         basePrice: import("@prisma/client/runtime/library").Decimal;
@@ -445,15 +451,9 @@ export declare class ProductService {
         calories: number | null;
         sortOrder: number;
         isAvailable: boolean;
-        isFeatured: boolean;
         isBestSeller: boolean;
         isNew: boolean;
         isOffer: boolean;
-        createdAt: Date;
-        updatedAt: Date;
-        createdBy: string | null;
-        updatedBy: string | null;
-        isDeleted: boolean;
     }>;
     searchAdmin(filters: ProductFilterDto): Promise<({
         category: {
@@ -463,9 +463,9 @@ export declare class ProductService {
         };
         images: {
             id: number;
-            sortOrder: number;
             createdAt: Date;
             productId: number;
+            sortOrder: number;
             imageUrl: string;
         }[];
         insight: {
@@ -481,11 +481,17 @@ export declare class ProductService {
     } & {
         id: number;
         guid: string;
-        productCode: string;
+        createdAt: Date;
+        updatedAt: Date;
+        isDeleted: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
         descriptionEn: string | null;
+        isFeatured: boolean;
+        createdBy: string | null;
+        updatedBy: string | null;
+        productCode: string;
         categoryId: number;
         mainImage: string | null;
         basePrice: import("@prisma/client/runtime/library").Decimal;
@@ -494,15 +500,9 @@ export declare class ProductService {
         calories: number | null;
         sortOrder: number;
         isAvailable: boolean;
-        isFeatured: boolean;
         isBestSeller: boolean;
         isNew: boolean;
         isOffer: boolean;
-        createdAt: Date;
-        updatedAt: Date;
-        createdBy: string | null;
-        updatedBy: string | null;
-        isDeleted: boolean;
     })[]>;
     searchCustomer(filters: ProductFilterDto): Promise<({
         category: {
@@ -512,9 +512,9 @@ export declare class ProductService {
         };
         images: {
             id: number;
-            sortOrder: number;
             createdAt: Date;
             productId: number;
+            sortOrder: number;
             imageUrl: string;
         }[];
         insight: {
@@ -530,11 +530,17 @@ export declare class ProductService {
     } & {
         id: number;
         guid: string;
-        productCode: string;
+        createdAt: Date;
+        updatedAt: Date;
+        isDeleted: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
         descriptionEn: string | null;
+        isFeatured: boolean;
+        createdBy: string | null;
+        updatedBy: string | null;
+        productCode: string;
         categoryId: number;
         mainImage: string | null;
         basePrice: import("@prisma/client/runtime/library").Decimal;
@@ -543,14 +549,8 @@ export declare class ProductService {
         calories: number | null;
         sortOrder: number;
         isAvailable: boolean;
-        isFeatured: boolean;
         isBestSeller: boolean;
         isNew: boolean;
         isOffer: boolean;
-        createdAt: Date;
-        updatedAt: Date;
-        createdBy: string | null;
-        updatedBy: string | null;
-        isDeleted: boolean;
     })[]>;
 }

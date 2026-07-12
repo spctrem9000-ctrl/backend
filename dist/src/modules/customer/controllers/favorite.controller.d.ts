@@ -7,11 +7,17 @@ export declare class FavoriteController {
     }): Promise<{
         id: number;
         guid: string;
-        productCode: string;
+        createdAt: Date;
+        updatedAt: Date;
+        isDeleted: boolean;
         nameAr: string;
         nameEn: string;
         descriptionAr: string | null;
         descriptionEn: string | null;
+        isFeatured: boolean;
+        createdBy: string | null;
+        updatedBy: string | null;
+        productCode: string;
         categoryId: number;
         mainImage: string | null;
         basePrice: import("@prisma/client/runtime/library").Decimal;
@@ -20,15 +26,9 @@ export declare class FavoriteController {
         calories: number | null;
         sortOrder: number;
         isAvailable: boolean;
-        isFeatured: boolean;
         isBestSeller: boolean;
         isNew: boolean;
         isOffer: boolean;
-        createdAt: Date;
-        updatedAt: Date;
-        createdBy: string | null;
-        updatedBy: string | null;
-        isDeleted: boolean;
     }[]>;
     toggleFavorite(user: {
         id: number;

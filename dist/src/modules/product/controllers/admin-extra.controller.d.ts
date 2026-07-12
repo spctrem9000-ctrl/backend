@@ -11,14 +11,14 @@ export declare class AdminExtraController {
     }): Promise<{
         id: number;
         guid: string;
-        nameAr: string;
-        nameEn: string;
-        sortOrder: number;
-        isAvailable: boolean;
         createdAt: Date;
         updatedAt: Date;
-        createdBy: string | null;
         isDeleted: boolean;
+        nameAr: string;
+        nameEn: string;
+        createdBy: string | null;
+        sortOrder: number;
+        isAvailable: boolean;
         selectionType: import(".prisma/client").$Enums.SelectionType;
         isRequired: boolean;
         minSelection: number;
@@ -28,14 +28,14 @@ export declare class AdminExtraController {
         extras: {
             id: number;
             guid: string;
-            nameAr: string;
-            nameEn: string;
-            sortOrder: number;
-            isAvailable: boolean;
             createdAt: Date;
             updatedAt: Date;
-            createdBy: string | null;
             isDeleted: boolean;
+            nameAr: string;
+            nameEn: string;
+            createdBy: string | null;
+            sortOrder: number;
+            isAvailable: boolean;
             imageUrl: string | null;
             extraGroupId: number;
             price: import("@prisma/client/runtime/library").Decimal;
@@ -43,14 +43,14 @@ export declare class AdminExtraController {
     } & {
         id: number;
         guid: string;
-        nameAr: string;
-        nameEn: string;
-        sortOrder: number;
-        isAvailable: boolean;
         createdAt: Date;
         updatedAt: Date;
-        createdBy: string | null;
         isDeleted: boolean;
+        nameAr: string;
+        nameEn: string;
+        createdBy: string | null;
+        sortOrder: number;
+        isAvailable: boolean;
         selectionType: import(".prisma/client").$Enums.SelectionType;
         isRequired: boolean;
         minSelection: number;
@@ -61,14 +61,14 @@ export declare class AdminExtraController {
     }): Promise<{
         id: number;
         guid: string;
-        nameAr: string;
-        nameEn: string;
-        sortOrder: number;
-        isAvailable: boolean;
         createdAt: Date;
         updatedAt: Date;
-        createdBy: string | null;
         isDeleted: boolean;
+        nameAr: string;
+        nameEn: string;
+        createdBy: string | null;
+        sortOrder: number;
+        isAvailable: boolean;
         selectionType: import(".prisma/client").$Enums.SelectionType;
         isRequired: boolean;
         minSelection: number;
@@ -79,14 +79,14 @@ export declare class AdminExtraController {
     }): Promise<{
         id: number;
         guid: string;
-        nameAr: string;
-        nameEn: string;
-        sortOrder: number;
-        isAvailable: boolean;
         createdAt: Date;
         updatedAt: Date;
-        createdBy: string | null;
         isDeleted: boolean;
+        nameAr: string;
+        nameEn: string;
+        createdBy: string | null;
+        sortOrder: number;
+        isAvailable: boolean;
         selectionType: import(".prisma/client").$Enums.SelectionType;
         isRequired: boolean;
         minSelection: number;
@@ -97,14 +97,14 @@ export declare class AdminExtraController {
     }): Promise<{
         id: number;
         guid: string;
-        nameAr: string;
-        nameEn: string;
-        sortOrder: number;
-        isAvailable: boolean;
         createdAt: Date;
         updatedAt: Date;
-        createdBy: string | null;
         isDeleted: boolean;
+        nameAr: string;
+        nameEn: string;
+        createdBy: string | null;
+        sortOrder: number;
+        isAvailable: boolean;
         imageUrl: string | null;
         extraGroupId: number;
         price: import("@prisma/client/runtime/library").Decimal;
@@ -114,14 +114,14 @@ export declare class AdminExtraController {
     }): Promise<{
         id: number;
         guid: string;
-        nameAr: string;
-        nameEn: string;
-        sortOrder: number;
-        isAvailable: boolean;
         createdAt: Date;
         updatedAt: Date;
-        createdBy: string | null;
         isDeleted: boolean;
+        nameAr: string;
+        nameEn: string;
+        createdBy: string | null;
+        sortOrder: number;
+        isAvailable: boolean;
         imageUrl: string | null;
         extraGroupId: number;
         price: import("@prisma/client/runtime/library").Decimal;
@@ -131,14 +131,14 @@ export declare class AdminExtraController {
     }): Promise<{
         id: number;
         guid: string;
-        nameAr: string;
-        nameEn: string;
-        sortOrder: number;
-        isAvailable: boolean;
         createdAt: Date;
         updatedAt: Date;
-        createdBy: string | null;
         isDeleted: boolean;
+        nameAr: string;
+        nameEn: string;
+        createdBy: string | null;
+        sortOrder: number;
+        isAvailable: boolean;
         imageUrl: string | null;
         extraGroupId: number;
         price: import("@prisma/client/runtime/library").Decimal;

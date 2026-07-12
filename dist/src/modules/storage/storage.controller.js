@@ -62,9 +62,9 @@ __decorate([
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file')),
     __param(0, (0, common_1.UploadedFile)(new common_1.ParseFilePipe({
         validators: [
-            new common_1.MaxFileSizeValidator({ maxSize: 5 * 1024 * 1024 }),
+            new common_1.MaxFileSizeValidator({ maxSize: 10 * 1024 * 1024 }),
             new common_1.FileTypeValidator({
-                fileType: '.(png|jpeg|jpg|webp|mp3|wav|ogg)',
+                fileType: /(image\/(png|jpeg|jpg|webp))|(audio\/(mpeg|wav|ogg|mp3))/,
             }),
         ],
     }))),
@@ -95,9 +95,9 @@ __decorate([
     (0, common_1.UseInterceptors)((0, platform_express_1.FilesInterceptor)('files', 10)),
     __param(0, (0, common_1.UploadedFiles)(new common_1.ParseFilePipe({
         validators: [
-            new common_1.MaxFileSizeValidator({ maxSize: 5 * 1024 * 1024 }),
+            new common_1.MaxFileSizeValidator({ maxSize: 10 * 1024 * 1024 }),
             new common_1.FileTypeValidator({
-                fileType: '.(png|jpeg|jpg|webp|mp3|wav|ogg)',
+                fileType: /(image\/(png|jpeg|jpg|webp))|(audio\/(mpeg|wav|ogg|mp3))/,
             }),
         ],
     }))),

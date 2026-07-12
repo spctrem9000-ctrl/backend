@@ -56,7 +56,8 @@ export class StorageController {
         validators: [
           new MaxFileSizeValidator({ maxSize: 10 * 1024 * 1024 }), // 10MB
           new FileTypeValidator({
-            fileType: /(image\/(png|jpeg|jpg|webp))|(audio\/(mpeg|wav|ogg|mp3))/,
+            fileType:
+              /(image\/(png|jpeg|jpg|webp))|(audio\/(mpeg|wav|ogg|mp3))/,
           }),
         ],
       }),
@@ -95,7 +96,8 @@ export class StorageController {
         validators: [
           new MaxFileSizeValidator({ maxSize: 10 * 1024 * 1024 }), // 10MB per file
           new FileTypeValidator({
-            fileType: /(image\/(png|jpeg|jpg|webp))|(audio\/(mpeg|wav|ogg|mp3))/,
+            fileType:
+              /(image\/(png|jpeg|jpg|webp))|(audio\/(mpeg|wav|ogg|mp3))/,
           }),
         ],
       }),

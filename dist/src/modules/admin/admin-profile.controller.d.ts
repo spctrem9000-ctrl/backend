@@ -7,16 +7,16 @@ export declare class AdminProfileController {
         id: string;
     }): Promise<{
         guid: string;
-        createdAt: Date;
-        name: string;
         email: string;
+        name: string;
+        createdAt: Date;
     }>;
     updateProfile(user: {
         id: string;
     }, dto: UpdateProfileDto): Promise<{
         guid: string;
-        name: string;
         email: string;
+        name: string;
     }>;
     changePassword(user: {
         id: string;

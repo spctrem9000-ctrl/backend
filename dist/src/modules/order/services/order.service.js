@@ -96,8 +96,18 @@ let OrderService = class OrderService {
             where,
             orderBy: { createdAt: 'desc' },
             include: {
-                customer: { select: { name: true, phone: true } },
+                customer: true,
                 address: true,
+                items: {
+                    include: {
+                        product: { select: { nameAr: true, nameEn: true } },
+                        extras: {
+                            include: {
+                                extra: { select: { nameAr: true, nameEn: true, price: true } },
+                            },
+                        },
+                    },
+                },
             },
         });
     }

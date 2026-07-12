@@ -99,5 +99,8 @@
     "moduleNameMapper": {
       "^uuid$": "D:\\Menu\\backend\\node_modules\\uuid\\dist-node\\index.js"
     }
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   }
 }

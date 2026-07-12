@@ -21,6 +21,7 @@ let JwtRefreshStrategy = class JwtRefreshStrategy extends (0, passport_1.Passpor
             jwtFromRequest: passport_jwt_1.ExtractJwt.fromBodyField('refreshToken'),
             ignoreExpiration: false,
             secretOrKey: configService.get('JWT_REFRESH_SECRET'),
+            passReqToCallback: true,
         });
         this.configService = configService;
     }

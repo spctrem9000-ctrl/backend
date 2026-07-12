@@ -14,11 +14,11 @@ export declare class AdminAuthService implements OnModuleInit {
         profile: {
             id: number;
             guid: string;
+            email: string;
+            name: string;
             createdAt: Date;
             updatedAt: Date;
             isDeleted: boolean;
-            name: string;
-            email: string;
         };
         tokens: {
             accessToken: string;

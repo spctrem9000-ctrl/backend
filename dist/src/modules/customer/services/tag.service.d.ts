@@ -6,21 +6,21 @@ export declare class TagService {
     createTag(dto: CreateCustomerTagDto): Promise<{
         id: number;
         guid: string;
+        name: string;
         createdAt: Date;
         updatedAt: Date;
-        createdBy: string | null;
         isDeleted: boolean;
-        name: string;
+        createdBy: string | null;
         colorHex: string | null;
     }>;
     getAllTags(): Promise<{
         id: number;
         guid: string;
+        name: string;
         createdAt: Date;
         updatedAt: Date;
-        createdBy: string | null;
         isDeleted: boolean;
-        name: string;
+        createdBy: string | null;
         colorHex: string | null;
     }[]>;
     assignTagToCustomer(customerId: number, tagId: number): Promise<{

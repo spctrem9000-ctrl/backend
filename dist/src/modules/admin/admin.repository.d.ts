@@ -6,31 +6,31 @@ export declare class AdminRepository {
     create(data: Prisma.AdminCreateInput): Promise<{
         id: number;
         guid: string;
+        email: string;
+        name: string;
+        password: string;
         createdAt: Date;
         updatedAt: Date;
         isDeleted: boolean;
-        name: string;
-        email: string;
-        password: string;
     }>;
     findByEmail(email: string): Promise<{
         id: number;
         guid: string;
+        email: string;
+        name: string;
+        password: string;
         createdAt: Date;
         updatedAt: Date;
         isDeleted: boolean;
-        name: string;
-        email: string;
-        password: string;
     } | null>;
     findById(id: number): Promise<{
         id: number;
         guid: string;
+        email: string;
+        name: string;
+        password: string;
         createdAt: Date;
         updatedAt: Date;
         isDeleted: boolean;
-        name: string;
-        email: string;
-        password: string;
     } | null>;
 }
