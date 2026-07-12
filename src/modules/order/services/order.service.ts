@@ -106,7 +106,9 @@ export class OrderService {
       where,
       orderBy: { createdAt: 'desc' },
       include: {
-        customer: true,
+        customer: {
+          include: { tags: { include: { tag: true } } }
+        },
         address: true,
         items: {
           include: {
@@ -126,7 +128,9 @@ export class OrderService {
     const order = await this.prisma.order.findFirst({
       where: { id: orderId, isDeleted: false },
       include: {
-        customer: true,
+        customer: {
+          include: { tags: { include: { tag: true } } }
+        },
         items: {
           include: { product: true, extras: { include: { extra: true } } },
         },
