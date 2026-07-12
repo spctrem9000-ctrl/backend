@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../../../core/prisma/prisma.service';
 
 @Injectable()
@@ -25,28 +25,35 @@ export class CouponService {
   }
 
   async createCoupon(data: any) {
-    const { productIds, categoryIds, customerIds, ...rest } = data;
+    try {
+      const { productIds, categoryIds, customerIds, ...rest } = data;
 
-    return this.prisma.coupon.create({
-      data: {
-        ...rest,
-        targetProducts: productIds?.length
-          ? {
-              create: productIds.map((id: number) => ({ productId: id })),
-            }
-          : undefined,
-        targetCategories: categoryIds?.length
-          ? {
-              create: categoryIds.map((id: number) => ({ categoryId: id })),
-            }
-          : undefined,
-        targetCustomers: customerIds?.length
-          ? {
-              create: customerIds.map((id: number) => ({ customerId: id })),
-            }
-          : undefined,
-      },
-    });
+      return await this.prisma.coupon.create({
+        data: {
+          ...rest,
+          targetProducts: productIds?.length
+            ? {
+                create: productIds.map((id: number) => ({ productId: id })),
+              }
+            : undefined,
+          targetCategories: categoryIds?.length
+            ? {
+                create: categoryIds.map((id: number) => ({ categoryId: id })),
+              }
+            : undefined,
+          targetCustomers: customerIds?.length
+            ? {
+                create: customerIds.map((id: number) => ({ customerId: id })),
+              }
+            : undefined,
+        },
+      });
+    } catch (error: any) {
+      if (error.code === 'P2002') {
+        throw new BadRequestException('A coupon with this code already exists.');
+      }
+      throw error;
+    }
   }
 
   async updateCoupon(id: number, data: any) {
