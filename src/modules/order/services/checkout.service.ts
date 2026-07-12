@@ -32,6 +32,7 @@ export class CheckoutService {
       throw new BadRequestException('Cart is empty');
     }
 
+    let deliveryFee = 0;
     // 3. Validate Address if Delivery
     if (dto.orderType === OrderType.DELIVERY) {
       if (!dto.addressId)
@@ -40,8 +41,13 @@ export class CheckoutService {
         );
       const address = await this.prisma.address.findFirst({
         where: { id: dto.addressId, customerId },
+        include: { deliveryArea: true },
       });
       if (!address) throw new BadRequestException('Invalid delivery address');
+      
+      if (address.deliveryArea) {
+        deliveryFee = Number(address.deliveryArea.deliveryFee);
+      }
     }
 
     // 4. Validate Availability (Already checked implicitly during cart calculation, but let's double check)
@@ -75,8 +81,9 @@ export class CheckoutService {
           discount: cart.discount,
           couponDiscount: cart.couponDiscount,
           loyaltyDiscount: cart.loyaltyDiscount,
-          deliveryFees: cart.deliveryFees,
-          grandTotal: cart.grandTotal,
+          loyaltyPointsUsed: cart.loyaltyPointsApplied,
+          deliveryFees: deliveryFee,
+          grandTotal: cart.subtotal - cart.discount + deliveryFee,
           couponId: cart.couponId,
           orderNotes: dto.orderNotes,
           items: {
@@ -115,11 +122,30 @@ export class CheckoutService {
         data: { couponId: null, loyaltyPointsApplied: 0 },
       });
 
-      // Update customer stats
-      await tx.customer.update({
-        where: { id: customerId },
-        data: { totalOrders: { increment: 1 } },
-      });
+      // Update customer stats and deduct points if any
+      if (cart.loyaltyPointsApplied > 0) {
+        await tx.loyaltyTransaction.create({
+          data: {
+            customerId,
+            points: -cart.loyaltyPointsApplied,
+            type: 'REDEEM',
+            reason: `Redeemed points for order ${orderCode}`,
+          },
+        });
+        
+        await tx.customer.update({
+          where: { id: customerId },
+          data: { 
+            totalOrders: { increment: 1 },
+            loyaltyPoints: { decrement: cart.loyaltyPointsApplied },
+          },
+        });
+      } else {
+        await tx.customer.update({
+          where: { id: customerId },
+          data: { totalOrders: { increment: 1 } },
+        });
+      }
 
       return createdOrder;
     });

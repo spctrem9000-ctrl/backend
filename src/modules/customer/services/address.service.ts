@@ -20,6 +20,7 @@ export class AddressService {
     return this.prisma.address.findMany({
       where: { customerId, isDeleted: false },
       orderBy: { isDefault: 'desc' },
+      include: { deliveryArea: true },
     });
   }
 

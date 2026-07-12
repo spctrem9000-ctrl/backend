@@ -6,6 +6,7 @@ import {
   IsArray,
   IsOptional,
   IsString,
+  IsBoolean,
 } from 'class-validator';
 
 export class AddCartItemDto {
@@ -40,4 +41,11 @@ export class ApplyCouponDto {
   @IsNotEmpty()
   @IsString()
   code: string;
+}
+
+export class ToggleLoyaltyRedemptionDto {
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsBoolean()
+  redeem: boolean;
 }

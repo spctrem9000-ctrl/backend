@@ -21,6 +21,7 @@ export class CartService {
           },
         },
         coupon: true,
+        customer: { select: { loyaltyPoints: true } },
       },
     });
 
@@ -32,6 +33,7 @@ export class CartService {
             include: { product: true, extras: { include: { extra: true } } },
           },
           coupon: true,
+          customer: { select: { loyaltyPoints: true } },
         },
       });
     }
@@ -147,6 +149,23 @@ export class CartService {
     return this.getCart(customerId);
   }
 
+  async toggleLoyalty(customerId: number, redeem: boolean) {
+    const cart = await this.prisma.cart.findUnique({
+      where: { customerId },
+      include: { customer: true },
+    });
+    if (!cart) throw new NotFoundException('Cart not found');
+
+    const pointsToApply = redeem ? cart.customer.loyaltyPoints : 0;
+
+    await this.prisma.cart.update({
+      where: { id: cart.id },
+      data: { loyaltyPointsApplied: pointsToApply },
+    });
+
+    return this.getCart(customerId);
+  }
+
   private calculateTotals(cart: any) {
     let subtotal = 0;
 
@@ -172,7 +191,7 @@ export class CartService {
 
     let discount = 0;
     let couponDiscount = 0;
-    const loyaltyDiscount = 0;
+    let loyaltyDiscount = 0;
 
     // Apply Coupon
     if (cart.coupon) {
@@ -191,6 +210,28 @@ export class CartService {
         couponDiscount = Number(cart.coupon.fixedDiscount);
       }
       discount += couponDiscount;
+    }
+
+    // Apply Loyalty Points
+    if (cart.loyaltyPointsApplied > 0 && cart.customer) {
+      let maxPoints = cart.customer.loyaltyPoints;
+      // Ensure we don't apply more points than the remaining subtotal (after coupon)
+      const maxDiscountNeeded = subtotal - discount;
+      const maxPointsNeeded = Math.ceil(maxDiscountNeeded * 100); // 100 points = 1 EGP
+      if (maxPoints > maxPointsNeeded) {
+        maxPoints = maxPointsNeeded;
+      }
+      
+      let appliedPoints = cart.loyaltyPointsApplied;
+      if (appliedPoints > maxPoints) {
+        appliedPoints = maxPoints;
+      }
+
+      loyaltyDiscount = appliedPoints / 100;
+      discount += loyaltyDiscount;
+      
+      // Update cart object to reflect the actual applied points
+      cart.loyaltyPointsApplied = appliedPoints;
     }
 
     const deliveryFees = 0; // Mock delivery fees for now or calculate based on settings

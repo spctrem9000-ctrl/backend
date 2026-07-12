@@ -20,6 +20,7 @@ import { MarketingModule } from './modules/marketing/marketing.module';
 import { EngagementModule } from './modules/engagement/engagement.module';
 import { CmsModule } from './modules/cms/cms.module';
 import { AdminModule } from './modules/admin/admin.module';
+import { DeliveryAreaModule } from './modules/delivery-area/delivery-area.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
@@ -67,6 +68,7 @@ import { join } from 'path';
     EngagementModule,
     CmsModule,
     AdminModule,
+    DeliveryAreaModule,
   ],
   controllers: [],
   providers: [

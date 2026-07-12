@@ -15,6 +15,7 @@ import {
   AddCartItemDto,
   UpdateCartItemQuantityDto,
   ApplyCouponDto,
+  ToggleLoyaltyRedemptionDto,
 } from '../dto/cart.dto';
 import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../../common/guards/roles.guard';
@@ -79,5 +80,14 @@ export class CustomerCartController {
   @ApiOperation({ summary: 'Remove coupon' })
   removeCoupon(@CurrentUser() user: { id: number }) {
     return this.cartService.removeCoupon(user.id);
+  }
+
+  @Post('loyalty')
+  @ApiOperation({ summary: 'Toggle loyalty points redemption' })
+  toggleLoyalty(
+    @CurrentUser() user: { id: number },
+    @Body() dto: ToggleLoyaltyRedemptionDto,
+  ) {
+    return this.cartService.toggleLoyalty(user.id, dto.redeem);
   }
 }
