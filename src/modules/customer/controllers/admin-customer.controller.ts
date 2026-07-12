@@ -39,6 +39,19 @@ export class AdminCustomerController {
     return this.customerService.getAllCustomers();
   }
 
+  // TAGS
+  @Post('tags')
+  @ApiOperation({ summary: 'Create a new customer tag' })
+  createTag(@Body() dto: CreateCustomerTagDto) {
+    return this.tagService.createTag(dto);
+  }
+
+  @Get('tags')
+  @ApiOperation({ summary: 'Get all system tags' })
+  getAllTags() {
+    return this.tagService.getAllTags();
+  }
+
   @Get(':id')
   @ApiOperation({ summary: 'Get full CRM details for a customer' })
   getCustomerDetails(@Param('id', ParseIntPipe) id: number) {
@@ -60,19 +73,7 @@ export class AdminCustomerController {
     return this.customerService.updateCustomerStatus(id, status);
   }
 
-  // TAGS
-  @Post('tags')
-  @ApiOperation({ summary: 'Create a new customer tag' })
-  createTag(@Body() dto: CreateCustomerTagDto) {
-    return this.tagService.createTag(dto);
-  }
-
-  @Get('tags')
-  @ApiOperation({ summary: 'Get all system tags' })
-  getAllTags() {
-    return this.tagService.getAllTags();
-  }
-
+  // Customer tags assignments
   @Post(':customerId/tags/:tagId')
   @ApiOperation({ summary: 'Assign tag to customer' })
   assignTag(
