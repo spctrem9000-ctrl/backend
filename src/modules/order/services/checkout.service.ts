@@ -5,6 +5,7 @@ import { OrderNotificationService } from './order-notification.service';
 import { CheckoutDto } from '../dto/checkout.dto';
 import { OrderType, OrderAction, CustomerStatus } from '@prisma/client';
 import { randomBytes } from 'crypto';
+import { RealtimeService } from '../../realtime/realtime.service';
 
 @Injectable()
 export class CheckoutService {
@@ -12,6 +13,7 @@ export class CheckoutService {
     private prisma: PrismaService,
     private cartService: CartService,
     private notificationService: OrderNotificationService,
+    private realtimeService: RealtimeService,
   ) {}
 
   async checkout(customerId: number, dto: CheckoutDto) {
@@ -152,6 +154,9 @@ export class CheckoutService {
 
     // 7. Notify
     await this.notificationService.notifyNewOrder(order.id, order.orderCode);
+    
+    // 8. Broadcast Real-time Event
+    this.realtimeService.emitOrderCreated(order);
 
     return order;
   }

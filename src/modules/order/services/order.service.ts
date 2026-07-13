@@ -7,12 +7,14 @@ import { PrismaService } from '../../../core/prisma/prisma.service';
 import { OrderNotificationService } from './order-notification.service';
 import { OrderFilterDto } from '../dto/order-filter.dto';
 import { OrderStatus, OrderAction } from '@prisma/client';
+import { RealtimeService } from '../../realtime/realtime.service';
 
 @Injectable()
 export class OrderService {
   constructor(
     private prisma: PrismaService,
     private notificationService: OrderNotificationService,
+    private realtimeService: RealtimeService,
   ) {}
 
   // ==========================
@@ -177,6 +179,10 @@ export class OrderService {
       updated.orderCode,
       newStatus,
     );
+    
+    // Broadcast Real-time Event
+    this.realtimeService.emitOrderStatusChanged(updated.id, newStatus, updated.customerId);
+    
     return updated;
   }
 }

@@ -23,6 +23,7 @@ import { AdminModule } from './modules/admin/admin.module';
 import { DeliveryAreaModule } from './modules/delivery-area/delivery-area.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { RealtimeModule } from './modules/realtime/realtime.module';
 
 @Module({
   imports: [
@@ -69,6 +70,7 @@ import { join } from 'path';
     CmsModule,
     AdminModule,
     DeliveryAreaModule,
+    RealtimeModule,
   ],
   controllers: [],
   providers: [
