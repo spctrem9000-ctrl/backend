@@ -8,6 +8,7 @@ import { OrderNotificationService } from './order-notification.service';
 import { OrderFilterDto } from '../dto/order-filter.dto';
 import { OrderStatus, OrderAction } from '@prisma/client';
 import { RealtimeService } from '../../realtime/realtime.service';
+import { LoyaltyService } from '../../loyalty/services/loyalty.service';
 
 @Injectable()
 export class OrderService {
@@ -15,6 +16,7 @@ export class OrderService {
     private prisma: PrismaService,
     private notificationService: OrderNotificationService,
     private realtimeService: RealtimeService,
+    private loyaltyService: LoyaltyService,
   ) {}
 
   // ==========================
@@ -179,6 +181,33 @@ export class OrderService {
       updated.orderCode,
       newStatus,
     );
+
+    // Award loyalty points if delivered
+    if (newStatus === OrderStatus.DELIVERED) {
+      try {
+        const config: any = await this.loyaltyService.getConfig();
+        if (config && config.enabled) {
+          const pointsEarned = Math.floor(
+            Number(updated.grandTotal) * Number(config.pointsPerCurrency || 1)
+          );
+          if (pointsEarned > 0) {
+            await this.loyaltyService.earnPoints(updated.customerId, pointsEarned, updated.id);
+            // Optionally, we could send a specific notification for points earned here
+            // e.g. await this.notificationService.notifyPointsEarned(...)
+            // but for now, we assume the status change notification or a generic push covers it,
+            // actually the user specifically requested a notification for points.
+            await this.notificationService.sendNotificationToCustomer(
+              updated.customerId,
+              'نقاط ولاء جديدة!',
+              `تم إضافة ${pointsEarned} نقطة لحسابك مكافأة لطلبك #${updated.orderCode}`,
+              'LOYALTY'
+            );
+          }
+        }
+      } catch (error) {
+        console.error('Failed to award loyalty points:', error);
+      }
+    }
     
     // Broadcast Real-time Event
     this.realtimeService.emitOrderStatusChanged(updated.id, newStatus, updated.customerId);

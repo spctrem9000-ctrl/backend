@@ -52,7 +52,7 @@ export class LoyaltyService {
     });
     if (!setting) {
       return {
-        enabled: false,
+        enabled: true,
         pointsPerCurrency: 1,
         minRedeem: 100,
         maxRedeem: 1000,

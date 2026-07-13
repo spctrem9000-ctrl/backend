@@ -73,6 +73,15 @@ export class AdminCustomerController {
     return this.customerService.updateCustomerStatus(id, status);
   }
 
+  @Post(':id/reset-password')
+  @ApiOperation({ summary: 'Admin resets a customer password' })
+  resetPassword(
+    @Param('id', ParseIntPipe) id: number,
+    @Body('password') newPassword?: string,
+  ) {
+    return this.customerService.resetPasswordAdmin(id, newPassword);
+  }
+
   // Customer tags assignments
   @Post(':customerId/tags/:tagId')
   @ApiOperation({ summary: 'Assign tag to customer' })

@@ -3,6 +3,7 @@ import { CustomerRepository } from './customer.repository';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { PrismaService } from '../../core/prisma/prisma.service';
 import { CustomerStatus } from '@prisma/client';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class CustomerService {
@@ -60,6 +61,25 @@ export class CustomerService {
   async softDeleteAccount(customerId: number) {
     await this.customerRepository.update(customerId, { isDeleted: true });
     return { message: 'Account deleted successfully' };
+  }
+
+  async resetPasswordAdmin(customerId: number, newPassword?: string) {
+    const customer = await this.prisma.customer.findUnique({
+      where: { id: customerId, isDeleted: false },
+    });
+    if (!customer) throw new NotFoundException('Customer not found');
+
+    // Generate a random 8-digit password if not provided
+    const passwordToSet = newPassword || Math.floor(10000000 + Math.random() * 90000000).toString();
+    const passwordHash = await bcrypt.hash(passwordToSet, 10);
+
+    await this.customerRepository.update(customerId, { passwordHash });
+
+    return { 
+      message: 'Password reset successfully', 
+      newPassword: passwordToSet,
+      phone: customer.phone
+    };
   }
 
   async getAdminCustomerDetails(customerId: number) {
