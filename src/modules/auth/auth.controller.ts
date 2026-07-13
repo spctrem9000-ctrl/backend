@@ -45,7 +45,7 @@ export class AuthController {
     @CurrentUser()
     user: any,
   ) {
-    return this.authService.refreshTokens(user.id, user.refreshToken);
+    return this.authService.refreshTokens(user.sub, user.refreshToken);
   }
 
   @ApiBearerAuth()
@@ -56,7 +56,7 @@ export class AuthController {
     @CurrentUser()
     user: any,
   ) {
-    return this.authService.logout(user.id);
+    return this.authService.logout(user.sub);
   }
 
   @ApiBearerAuth()
